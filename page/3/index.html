@@ -513,14 +513,13 @@
 
         
             <!-- custom analytics part create by xiamo -->
-            <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+            <script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
             <script>
-                AV.initialize({
+                AV.init({
                     appId: '7zI4DxIGDY35x3d1h6XmX1ys-gzGzoHsz',
                     appKey: 'Lg3fMUTGskzVFEM77aiKqVUk'
                 });
-            </script>
-            <script>
+
                 function showTime(Counter) {
                     var query = new AV.Query(Counter);
                     var visitors = $('.leancloud_visitors');
