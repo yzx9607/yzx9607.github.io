@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://yzx9607.coding.me/images/SpringBootShiro/SpringBootShiro7.png">
 <meta property="og:image" content="http://yzx9607.coding.me/images/SpringBootShiro/SpringBootShiro8.png">
 <meta property="og:image" content="http://yzx9607.coding.me/images/SpringBootShiro/SpringBootShiro9.png">
-<meta property="og:updated_time" content="2019-04-26T03:26:16.428Z">
+<meta property="og:updated_time" content="2019-04-26T03:32:19.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot+Mybatis框架整合Shiro权限管理">
 <meta name="twitter:description" content="一、前言​    之前曾分享过一个关于shiro的认证原理的文章，分享了一下shiro的认证流程与shiro中的名词解释，其实shiro作为一款轻量级框架，被应用在各种中小型及大型企业的登录认证和用户授权的模块，有小伙伴称，在用SpringBoot框架，之前用过xml方式进行配置shiro框架，问我如何使用SpringBoot+注解来进行shiro的配置，我整理了文章，供大家参考 二、搭建shir">
@@ -397,7 +397,8 @@
 <h4 id="17-分别使用admin角色用户admin，devlop用户yang来登录测试queryUserAll接口（用户在sql脚本中插入并赋权的）"><a href="#17-分别使用admin角色用户admin，devlop用户yang来登录测试queryUserAll接口（用户在sql脚本中插入并赋权的）" class="headerlink" title="17.分别使用admin角色用户admin，devlop用户yang来登录测试queryUserAll接口（用户在sql脚本中插入并赋权的）"></a>17.分别使用admin角色用户admin，devlop用户yang来登录测试queryUserAll接口（用户在sql脚本中插入并赋权的）</h4><p><img src="/images/SpringBootShiro/SpringBootShiro7.png" alt=""></p>
 <p><img src="/images/SpringBootShiro/SpringBootShiro8.png" alt=""></p>
 <p>接口返回标识权限认证的保存信息已经被拦截掉，并且接口的权限认证已经生效</p>
-<h4 id="18-此时，shiro的认证和授权已经生效，整合完毕，源码点我获取，有问题欢迎来踩"><a href="#18-此时，shiro的认证和授权已经生效，整合完毕，源码点我获取，有问题欢迎来踩" class="headerlink" title="18.此时，shiro的认证和授权已经生效，整合完毕，源码点我获取，有问题欢迎来踩"></a>18.此时，shiro的认证和授权已经生效，整合完毕，<a href="https://gitee.com/yzx9607/SpringBootShiro" target="_blank" rel="noopener">源码点我获取</a>，有问题欢迎来踩</h4><p><img src="/images/SpringBootShiro/SpringBootShiro9.png" alt=""></p>
+<h4 id="18-此时，shiro的认证和授权已经生效，整合完毕，源码点我获取，有问题欢迎来踩，附上常用注解"><a href="#18-此时，shiro的认证和授权已经生效，整合完毕，源码点我获取，有问题欢迎来踩，附上常用注解" class="headerlink" title="18.此时，shiro的认证和授权已经生效，整合完毕，源码点我获取，有问题欢迎来踩，附上常用注解"></a>18.此时，shiro的认证和授权已经生效，整合完毕，<a href="https://gitee.com/yzx9607/SpringBootShiro" target="_blank" rel="noopener">源码点我获取</a>，有问题欢迎来踩，附上常用注解</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">RequiresAuthentication:</span><br><span class="line">使用该注解标注的类，实例，方法在访问或调用时，当前Subject必须在当前session中已经过认证。</span><br><span class="line"></span><br><span class="line">RequiresGuest:</span><br><span class="line">使用该注解标注的类，实例，方法在访问或调用时，当前Subject可以是“gust”身份，不需要经过认证或者在原先的session中存在记录。</span><br><span class="line"></span><br><span class="line">RequiresPermissions:</span><br><span class="line">当前Subject需要拥有某些特定的权限时，才能执行被该注解标注的方法。如果当前Subject不具有这样的权限，则方法不会被执行。</span><br><span class="line"></span><br><span class="line">RequiresRoles:</span><br><span class="line">当前Subject必须拥有所有指定的角色时，才能访问被该注解标注的方法。如果当天Subject不同时拥有所有指定角色，则方法不会执行还会抛出AuthorizationException异常。</span><br><span class="line"></span><br><span class="line">RequiresUser</span><br><span class="line">当前Subject必须是应用的用户，才能访问或调用被该注解标注的类，实例，方法。</span><br></pre></td></tr></table></figure>
+<p><img src="/images/SpringBootShiro/SpringBootShiro9.png" alt=""></p>
 
       
     </div>
