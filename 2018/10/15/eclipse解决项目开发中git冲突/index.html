@@ -343,6 +343,12 @@
 
       
       <div class="article-meta">
+        
+    <!-- 不蒜子统计 -->
+    <span id="busuanzi_container_page_pv" style="display:none" class="article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+    </span>
+    。
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
 	<a href="/2018/10/15/eclipse解决项目开发中git冲突/" class="article-date">
@@ -358,11 +364,13 @@
 
 
         
-
 	<span class="article-read hidden-xs">
-    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2018/10/15/eclipse解决项目开发中git冲突/" class="leancloud_visitors" data-flag-title="eclipse解决项目开发中git冲突">0</span>
-    </span>
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
 
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/15/eclipse解决项目开发中git冲突/#comments" class="article-comment-link">Comments</a></span>
         
@@ -540,7 +548,7 @@
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
-	
+    
 	
     <ul class="social-links">
     	
@@ -550,15 +558,22 @@
         
     </ul>
 
-    <div class="copyright">
-    	
-        <div class="publishby">
-        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        <div class="copyright">
+            
+                            
+                                <!-- 不蒜子统计 -->
+                                <span id="busuanzi_container_site_pv">
+                本站总访问量<span id="busuanzi_value_site_pv"></span>次
+                                </span>
+                                <span class="post-meta-divider">|</span>
+                                <span id="busuanzi_container_site_uv" 本站访客数<span=""></span>人
+                                
+                                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                                
         </div>
+        <div class="BbeiAn-info" "="">
+		<a href="http://ha.beian.miit.gov.cn/ ">豫ICP备-19021650号</a>
     </div>
-	<div class="BbeiAn-info"">
-		<a href="http://ha.beian.miit.gov.cn/">豫ICP备-19021650号</a>
-	</div>
 </footer>
   <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
@@ -624,98 +639,10 @@
     
     
         
+    <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
 
         
-            <!-- custom analytics part create by xiamo -->
-            <script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
-            <script>
-                AV.init({
-                    appId: '7zI4DxIGDY35x3d1h6XmX1ys-gzGzoHsz',
-                    appKey: 'Lg3fMUTGskzVFEM77aiKqVUk'
-                });
-
-                function showTime(Counter) {
-                    var query = new AV.Query(Counter);
-                    var visitors = $('.leancloud_visitors');
-                    query.greaterThanOrEqualTo("time", 0);
-                    query.find({
-                        success: function(results) {
-                            if (results.length == 0) {
-                                return;
-                            }
-                            var data = results;
-                            visitors.each(function() {
-                                var url = $(this).attr('id').trim();
-                                for (var i = 0; i < data.length; i++) {
-                                    var object = data[i];
-                                    var content = object.get('time');
-                                    var _url = object.get('url')
-                                    if (url == _url) {
-                                        $(this).text(content);
-                                    }
-                                }
-                            })
-
-                        },
-                        error: function(object, error) {
-                            console.log("Error: " + error.code + " " + error.message);
-                        }
-                    });
-                }
-
-                function addCount(Counter) {
-                    var Counter = AV.Object.extend("Counter");
-                    url = $(".leancloud_visitors").attr('id').trim();
-                    title = $(".leancloud_visitors").attr('data-flag-title').trim();
-                    var query = new AV.Query(Counter);
-                    query.equalTo("url", url);
-                    query.find({
-                        success: function(results) {
-                            if (results.length > 0) {
-                                var counter = results[0];
-                                counter.fetchWhenSave(true);
-                                counter.increment("time");
-                                counter.save(null, {
-                                    success: function(counter) {
-                                        var content = counter.get('time');
-                                        $(document.getElementById(url)).text(content);
-                                    },
-                                    error: function(counter, error) {
-                                        console.log('Failed to save Visitor num, with error message: ' + error.message);
-                                    }
-                                });
-                            } else {
-                                var newcounter = new Counter();
-                                newcounter.set("title", title);
-                                newcounter.set("url", url);
-                                newcounter.set("time", 1);
-                                newcounter.save(null, {
-                                    success: function(newcounter) {
-                                        console.log("newcounter.get('time')=" + newcounter.get('time'));
-                                        var content = newcounter.get('time');
-                                        $(document.getElementById(url)).text(content);
-                                    },
-                                    error: function(newcounter, error) {
-                                        console.log('Failed to create');
-                                    }
-                                });
-                            }
-                        },
-                        error: function(error) {
-                            console.log('Error:' + error.code + " " + error.message);
-                        }
-                    });
-                }
-                $(function() {
-                    var Counter = AV.Object.extend("Counter");
-                    if ($('.leancloud_visitors').length == 1) {
-                        addCount(Counter);
-                    } else {
-                        showTime(Counter);
-                    }
-                });
-            </script>
-            
     
     
         
