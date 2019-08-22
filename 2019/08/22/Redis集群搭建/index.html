@@ -34,8 +34,8 @@
 <meta property="og:image" content="http://yzx9607.coding.me/images/redis/RedisMany/RedisMany6.png">
 <meta property="og:image" content="http://yzx9607.coding.me/images/redis/RedisMany/RedisMany7.png">
 <meta property="og:image" content="http://yzx9607.coding.me/images/redis/RedisMany/RedisMany8.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/redis/RedisMany/RedisMany8.png">
-<meta property="og:updated_time" content="2019-08-22T13:12:24.624Z">
+<meta property="og:image" content="http://yzx9607.coding.me/images/redis/RedisMany/RedisMany9.png">
+<meta property="og:updated_time" content="2019-08-22T13:16:00.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis集群搭建-windows版本">
 <meta name="twitter:description" content="一、前言Redis作为当前比较流行的缓存数据库，在使用的过程中，如果使用单节点的Redis,当Redis出现宕机时，则无法再为应用提供服务，所以搭建Redis集群，是可以解决Redis错误时的问题。 二、开始搭建1.下载Redis的安装包下载地址:http://redis.io/download，下载安装包及源码包（源码包后期有用）  2.解压到自定义目录下（例如E:Redis），使用cmd切换到">
@@ -387,7 +387,7 @@
 <h3 id="13-连接后使用set-key-value，设置值，传入后看到如下提示即可"><a href="#13-连接后使用set-key-value，设置值，传入后看到如下提示即可" class="headerlink" title="13.连接后使用set key value，设置值，传入后看到如下提示即可"></a>13.连接后使用set key value，设置值，传入后看到如下提示即可</h3><p><img src="/images/redis/RedisMany/RedisMany8.png" alt=""></p>
 <h2 id="三、知识拓展"><a href="#三、知识拓展" class="headerlink" title="三、知识拓展"></a>三、知识拓展</h2><h3 id="1-修改redis局域网可访问，Redis默认只能本地访问，将redis-windows-conf文件进行修改，重启redis即可"><a href="#1-修改redis局域网可访问，Redis默认只能本地访问，将redis-windows-conf文件进行修改，重启redis即可" class="headerlink" title="1.修改redis局域网可访问，Redis默认只能本地访问，将redis.windows.conf文件进行修改，重启redis即可"></a>1.修改redis局域网可访问，Redis默认只能本地访问，将redis.windows.conf文件进行修改，重启redis即可</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bind 127.0.0.1</span><br><span class="line">修改为</span><br><span class="line">bind 0.0.0.0</span><br></pre></td></tr></table></figure>
 <h3 id="2-修改Redis相关配置后，重新创建集群失败问题解决，将所有节点下的三个文件进行删除，即可重新创建"><a href="#2-修改Redis相关配置后，重新创建集群失败问题解决，将所有节点下的三个文件进行删除，即可重新创建" class="headerlink" title="2.修改Redis相关配置后，重新创建集群失败问题解决，将所有节点下的三个文件进行删除，即可重新创建"></a>2.修改Redis相关配置后，重新创建集群失败问题解决，将所有节点下的三个文件进行删除，即可重新创建</h3><p>启动记录文件appendonly.aof和nodes-端口号.conf，集群配置信息dump.rdb文件</p>
-<p><img src="/images/redis/RedisMany/RedisMany8.png" alt=""></p>
+<p><img src="/images/redis/RedisMany/RedisMany9.png" alt=""></p>
 
       
     </div>
