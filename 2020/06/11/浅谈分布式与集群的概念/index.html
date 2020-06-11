@@ -17,16 +17,27 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>Java小白的个人博客</title>
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Java小白的个人博客">
-<meta property="og:url" content="http://yzx9607.coding.me/page/3/index.html">
+  <title>浅谈分布式与集群的概念 | Java小白的个人博客</title>
+  <meta name="description" content="各位好友，好久不见，最近由于自己工作的原因+疫情，一大堆事情导致断更，不知道各位大佬有没有想我这个菜鸟，最近也是看到许多的大佬都在发自己的文章，所以我也决定出来献丑了。   进入正题，随着互联网生态的迅速发展，中国的网民数量已经达到9亿多（据《报告》数据显示：截至2020年3月28，我国网民规模为9.04亿），越来越多的企业走向互联网；电商，小程序，云服务，短视频等等相关服务异常火爆，在这些互联网">
+<meta name="keywords" content="高并发,分布式,集群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈分布式与集群的概念">
+<meta property="og:url" content="http://yzx9607.coding.me/2020/06/11/浅谈分布式与集群的概念/index.html">
 <meta property="og:site_name" content="Java小白的个人博客">
+<meta property="og:description" content="各位好友，好久不见，最近由于自己工作的原因+疫情，一大堆事情导致断更，不知道各位大佬有没有想我这个菜鸟，最近也是看到许多的大佬都在发自己的文章，所以我也决定出来献丑了。   进入正题，随着互联网生态的迅速发展，中国的网民数量已经达到9亿多（据《报告》数据显示：截至2020年3月28，我国网民规模为9.04亿），越来越多的企业走向互联网；电商，小程序，云服务，短视频等等相关服务异常火爆，在这些互联网">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlmJPNnKc4jMOnv2jP49qs85dLOUCial3iaVcfhcYrYa0aJCnASicHX1U6nA/640?wx_fmt=gif">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlmC8sKTs2HibibYGkXhf7MJxp61IrqlYMEzpBdQyQrNCKO5Ag9DvCUuicTA/640?wx_fmt=gif">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlm0on79K9tlA3M25tP210z5LfLQWpeiaNB6aMeARaHZvHDLPONB1IamHQ/640?wx_fmt=png">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlm539EogQ5HIia0x1xdhqr8w9KseJCYTqEGB5E7tic8ALd6CaH2uIEchqA/640?wx_fmt=png">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlmq1OX04mRE2fOdqaWJc944utdw2jkrvK870t3g3yC5zg4O88sPnZHtQ/640?wx_fmt=png">
+<meta property="og:updated_time" content="2020-06-11T16:24:48.373Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java小白的个人博客">
+<meta name="twitter:title" content="浅谈分布式与集群的概念">
+<meta name="twitter:description" content="各位好友，好久不见，最近由于自己工作的原因+疫情，一大堆事情导致断更，不知道各位大佬有没有想我这个菜鸟，最近也是看到许多的大佬都在发自己的文章，所以我也决定出来献丑了。   进入正题，随着互联网生态的迅速发展，中国的网民数量已经达到9亿多（据《报告》数据显示：截至2020年3月28，我国网民规模为9.04亿），越来越多的企业走向互联网；电商，小程序，云服务，短视频等等相关服务异常火爆，在这些互联网">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_gif/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlmJPNnKc4jMOnv2jP49qs85dLOUCial3iaVcfhcYrYa0aJCnASicHX1U6nA/640?wx_fmt=gif">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://yzx9607.coding.me/page/3/index.html">
+  <link rel="canonical" href="http://yzx9607.coding.me/2020/06/11/浅谈分布式与集群的概念/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Java小白的个人博客" type="application/atom+xml">
   
@@ -310,322 +321,204 @@
 </aside>
 
   
-  <main class="main" role="main">
   
-  <div class="content article-list">
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-浅谈分布式与集群的概念" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
+    <div class="article-header">
+      
+        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/13/SpringBoot之两种配置文件application-properties与application-yml文件的区别/">SpringBoot之两种配置文件application.properties与application.yml文件的区别及读取方式</a>
+    <h1 class="article-title" itemprop="name">
+      浅谈分布式与集群的概念
     </h1>
   
 
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
+      
+      <div class="article-meta">
+        <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/11/13/SpringBoot之两种配置文件application-properties与application-yml文件的区别/" class="article-date">
-	  <time datetime="2018-11-13T06:55:34.000Z" itemprop="datePublished">Nov 13</time>
+	<a href="/2020/06/11/浅谈分布式与集群的概念/" class="article-date">
+	  <time datetime="2020-06-10T16:18:27.000Z" itemprop="datePublished">2020-06-11</time>
 	</a>
 </span>
-    
-    
+        
+        
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/SpringBoot/">SpringBoot</a>, <a class="article-tag-link" href="/tags/properties/">properties</a>, <a class="article-tag-link" href="/tags/yml/">yml</a>
+	<a class="article-tag-link" href="/tags/分布式/">分布式</a>, <a class="article-tag-link" href="/tags/集群/">集群</a>, <a class="article-tag-link" href="/tags/高并发/">高并发</a>
   </span>
 
 
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/13/SpringBoot之两种配置文件application-properties与application-yml文件的区别/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
+        
 
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/12/Mybatis分页插件PageHelper的使用/">Mybatis分页插件PageHelper的使用</a>
-    </h1>
-  
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2020/06/11/浅谈分布式与集群的概念/" class="leancloud_visitors" data-flag-title="浅谈分布式与集群的概念">0</span>
+    </span>
 
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/11/12/Mybatis分页插件PageHelper的使用/" class="article-date">
-	  <time datetime="2018-11-12T08:24:36.000Z" itemprop="datePublished">Nov 12</time>
-	</a>
-</span>
-    
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/Mybatis/">Mybatis</a>, <a class="article-tag-link" href="/tags/PageHelper/">PageHelper</a>, <a class="article-tag-link" href="/tags/SpringBoot/">SpringBoot</a>
-  </span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/06/11/浅谈分布式与集群的概念/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>各位好友，好久不见，最近由于自己工作的原因+疫情，一大堆事情导致断更，不知道各位大佬有没有想我这个菜鸟，最近也是看到许多的大佬都在发自己的文章，所以我也决定出来献丑了。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlmJPNnKc4jMOnv2jP49qs85dLOUCial3iaVcfhcYrYa0aJCnASicHX1U6nA/640?wx_fmt=gif" alt="img"></p>
+<hr>
+<p>进入正题，随着互联网生态的迅速发展，中国的网民数量已经达到9亿多（据《报告》数据显示：截至2020年3月28，我国网民规模为9.04亿），越来越多的企业走向互联网；电商，小程序，云服务，短视频等等相关服务异常火爆，在这些互联网产品的背后，是一个很强大的服务后台支撑，强大的数据支撑，这当然离不开分布式服务与集群，正是这两个技术的产生，提升了互联网产业的承载力，也推动了互联网产业的发展。</p>
+<h2 id="什么是分布式呢？"><a href="#什么是分布式呢？" class="headerlink" title="什么是分布式呢？"></a><strong>什么是分布式呢？</strong></h2><p>这个词语，对程序员朋友来说其实并不陌生，在项目中、面试中，分布式在大型和重型企业都已经运用到了项目之中，对于一些刚刚入行的朋友可能只是听过这些词语：分布式，高并发，QPS每秒查询率(Query Per Second)、吞吐量。下面我来讲讲什么是分布式：</p>
+<h3 id="先说概念："><a href="#先说概念：" class="headerlink" title="先说概念："></a><strong>先说概念：</strong></h3><p><em>分布式服务是将一个完整的系统拆分为许多服务分散部署在不同的机器上，一个服务可能负责几个功能，是一种面向SOA架构的，服务之间也是通过rpc来交互或者是webservice来交互的。逻辑架构设计完后就该做物理架构设计，系统应用部署在超过一台服务器或虚拟机上，且各分开部署的部分彼此通过各种通讯协议交互信息，就可算作分布式部署，生产环境下的微服务肯定是分布式部署的，分布式部署的应用不一定是微服务架构的。</em></p>
+<h3 id="名词解释："><a href="#名词解释：" class="headerlink" title="名词解释："></a><strong>名词解释：</strong></h3><p><em>SOA ：是一种面向服务的架构，它将应用程序的不同功能单元（称为服务）进行拆分，并通过这些服务之间定义良好的接口和协议联系起来</em></p>
+<p><em>RPC : 远程过程调用，通俗的讲， RPC就是要像调用本地的函数一样去调远程函数Webservice : 可以使应用程序以与平台和编程语言无关的方式进行相互通信的一种技术</em></p>
+<p>这时候可能会有朋友还是会一脸懵x</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlmC8sKTs2HibibYGkXhf7MJxp61IrqlYMEzpBdQyQrNCKO5Ag9DvCUuicTA/640?wx_fmt=gif" alt="img"></p>
+<h3 id="其实概念性的东西不太好理解，我给大家讲个故事："><a href="#其实概念性的东西不太好理解，我给大家讲个故事：" class="headerlink" title="其实概念性的东西不太好理解，我给大家讲个故事："></a><strong>其实概念性的东西不太好理解，我给大家讲个故事：</strong></h3><p><em>一个电商系统，前期用户量较少，他们将所有的服务都在同一个机器上部署（单机），随着业务的推广，网站的访问量逐渐上升，单机器的承载量有限，系统最终会承载不了更多的用户使用的时候，如何处理呢？</em></p>
+<p>此时：公司的程序员A提出了一个方案，我们可以将系统的用户服务，商品服务，支付服务等服务进行拆分，调用每层服务时，使用定义好的协议调用，这样子服务一个服务器的压力可以分发给多个服务了。</p>
+<p><strong>此时，这个程序员A提出的方案，就是分布式的解决方案，将服务进行分发，调用服务时，采用自己定义的调用协议，简单解决承载量的问题。</strong></p>
+<p><strong>分布式解决方案</strong></p>
+<p>分布式解决方案（分布式服务框架）</p>
+<p>•分布式服务框架：提供了服务调用协议，服务注册发现，服务治理与一体的框架，目前主流的分布式框架有：Dubbo、JSF、Motan，都是基于RPC（远程服务调用协议）来实现服务的治理。</p>
+<p>使用分布式框架解决了什么呢？如下图，随着系统业务的增加，服务的调用关系会更加复杂，服务之之间的调用关系也会变成如下图这种，相对复杂的调用关系，层级交错，也对服务治理造成了维护上的困扰。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlm0on79K9tlA3M25tP210z5LfLQWpeiaNB6aMeARaHZvHDLPONB1IamHQ/640?wx_fmt=png" alt="img"></p>
+<p><strong>分布式架构可以将服务进行治理，将错综复杂的关系统一管理，如下图。</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlm539EogQ5HIia0x1xdhqr8w9KseJCYTqEGB5E7tic8ALd6CaH2uIEchqA/640?wx_fmt=png" alt="img"></p>
+<p> 一个完整的分布式服务框架才能被大众所认可，目前主流的分布式服务框架的构成如下：</p>
+<p>（1）Provider：服务提供者，无论是业务服务，还是一个系统中公用的SAAS，都属于Provider•</p>
+<p>（2）Consumer：即发起调用的客户端</p>
+<p>（3）Registry：服务注册中心，是分布式服务系统中的一个重要组成模块，管理Provider的Manager，在实际的运行环境中，服务注册中心Registry被动通知或Consumer主动询问，在Provider有节点宕机或新增节点时，客户端也可实时感知到，从而避免了某个Provider被无限调用或是无限闲置</p>
+<p>（4）Gateway：网关也是分布式服务框架中不可或缺的部分，每种系统与框架都有自己的一套协议，当异构系统互相调用时，网关的作用即显现出来，Gateway接受各种外部HTTP请求，完成相应的权限校验，报文适配，路由转发到对应的Provider，再将Provider返回的结果传递给异构系统的Consumer，完成异构系统的互相调用</p>
+<p>（5）负载均衡，服务分流：Consumer从Registry获得具体的Provider列表后，如何选取合适的Provider，取决与一定的负载均衡算法，常见的算法有轮询法，随机法，源地址哈希，加权轮询，加权随机等</p>
+<p>（6）监控：接收来自Consumer和Provider异步上报的性能监控数据，对有风险的节点发出告警</p>
+<p>一个优秀的分布式框架，能够将一个系统服务进行解耦，拥有注册中心，服务可以提供和消费，完整地网关，负载，能够使系统的业务被拆分，拆分之后又能无感知的调用服务（就像在用一个模块调用服务）一样。</p>
+<h2 id="集群的概念"><a href="#集群的概念" class="headerlink" title="集群的概念"></a><strong>集群的概念</strong></h2><p><strong>集群：</strong>顾名思义，它是把相同应用复制到不同服务器上，但是逻辑功能上还是单体应用。结合负载均衡策略，将服务的请求压力进行分发，从而能将服务的承载量进行提升，更多的服务肯定能承载更多的请求，用数量增加的方案来支撑更多的业务量。</p>
+<p><strong>简单理解：</strong>将项目后台功能复制多份，结合网关，负载均衡策略，来支撑更大的业务量，用数量来提升访问量的方式，称为集群部署。</p>
+<p><strong>一个小故事来理解（接上一个故事）：</strong></p>
+<p><em>系统被拆分之后，每一块的业务不会影响彼此，但是随着用户量的上升，某些服务会存在挂掉的情况，公司的程序员B提出了一个问题，即使我们进行了拆分，只是将每个模块业务拆开了，电商平台，商品服务肯定是使用最多的服务，那这个服务不够用，或者挂掉的时候，我们的业务不就瘫痪了吗？如何做一个备份，提高可用性，或者多个服务备份，提供更多的服务支撑呢？</em></p>
+<p><em>此时，万能的程序员A又说：我们可以使用集群呀！</em></p>
+<p>万能的程序员将拆分后的服务，进行多次拷贝，将服务的注册中心也进行拷贝，结合nginx的负载均衡，解决了项目某些模块总是被挂掉的问题。</p>
+<p>此时：万能的程序员A使用的技术就是集群技术，但是这个技术是在分布式的基础上增加了集群，故这个系统采用的是<strong>分布式集群部署方案</strong>。</p>
+<p>下面给大家张图，这张图就是我之前简单设计的分布式集群架构图。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagFNEUBECILHhqgWrKib5cLlmq1OX04mRE2fOdqaWJc944utdw2jkrvK870t3g3yC5zg4O88sPnZHtQ/640?wx_fmt=png" alt="img"></p>
+<p><strong>分布式集群</strong>部署架构才是目前主流的高并发解决方案，在使用集群的与同时，肯定会遇到分布式锁，分布式事务的问题，这个问题我们下次再讲。</p>
+<p>我们下次再会，欢迎各位指出问题</p>
 
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/12/Mybatis分页插件PageHelper的使用/#comments" class="article-comment-link">Comments</a></span>
+      
+    </div>
+    <div class="article-footer">
+      
     
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/02/SpringBoot之整合Mybatis篇/">SpringBoot之整合Mybatis篇</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/11/02/SpringBoot之整合Mybatis篇/" class="article-date">
-	  <time datetime="2018-11-02T07:48:03.000Z" itemprop="datePublished">Nov 2</time>
-	</a>
-</span>
-    
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/Mybatis/">Mybatis</a>, <a class="article-tag-link" href="/tags/SpringBoot/">SpringBoot</a>, <a class="article-tag-link" href="/tags/eclipse/">eclipse</a>, <a class="article-tag-link" href="/tags/maven/">maven</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/02/SpringBoot之整合Mybatis篇/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/01/SpringBoot之Hello-World篇，使用eclipse搭建SpringBoot工程/">SpringBoot之Hello World篇，使用eclipse+maven搭建SpringBoot工程</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/11/01/SpringBoot之Hello-World篇，使用eclipse搭建SpringBoot工程/" class="article-date">
-	  <time datetime="2018-11-01T08:04:09.000Z" itemprop="datePublished">Nov 1</time>
-	</a>
-</span>
-    
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/SpringBoot/">SpringBoot</a>, <a class="article-tag-link" href="/tags/eclipse/">eclipse</a>, <a class="article-tag-link" href="/tags/maven/">maven</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/01/SpringBoot之Hello-World篇，使用eclipse搭建SpringBoot工程/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/23/两年前写的Java基础总结书/">两年前写的Java基础总结书</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/10/23/两年前写的Java基础总结书/" class="article-date">
-	  <time datetime="2018-10-23T08:06:58.000Z" itemprop="datePublished">Oct 23</time>
-	</a>
-</span>
-    
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/Java基础/">Java基础</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/23/两年前写的Java基础总结书/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/">使用eclipse对maven项目打包时出现No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/" class="article-date">
-	  <time datetime="2018-10-23T06:24:54.000Z" itemprop="datePublished">Oct 23</time>
-	</a>
-</span>
-    
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/eclipse/">eclipse</a>, <a class="article-tag-link" href="/tags/maven/">maven</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/19/如何读取服务器中文本文件并转为文字/">如何读取服务器中文本文件并转为文字</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/10/19/如何读取服务器中文本文件并转为文字/" class="article-date">
-	  <time datetime="2018-10-19T06:12:02.000Z" itemprop="datePublished">Oct 19</time>
-	</a>
-</span>
-    
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/文件流/">文件流</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/19/如何读取服务器中文本文件并转为文字/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/15/eclipse解决项目开发中git冲突/">eclipse解决项目开发中git冲突</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/10/15/eclipse解决项目开发中git冲突/" class="article-date">
-	  <time datetime="2018-10-15T01:42:47.000Z" itemprop="datePublished">Oct 15</time>
-	</a>
-</span>
-    
-    
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/eclipse/">eclipse</a>, <a class="article-tag-link" href="/tags/git/">git</a>
-  </span>
-
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/15/eclipse解决项目开发中git冲突/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-      <article class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
-  <div class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/30/hello-world/">Hexo Create Post Method</a>
-    </h1>
-  
-
-  </div>
-  
-  <p class="article-meta">
-    <span class="article-date">
-    <i class="icon icon-calendar-check"></i>
-	<a href="/2018/09/30/hello-world/" class="article-date">
-	  <time datetime="2018-09-30T09:14:44.000Z" itemprop="datePublished">Sep 30</time>
-	</a>
-</span>
-    
-    
-
-    <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/09/30/hello-world/#comments" class="article-comment-link">Comments</a></span>
-    
-  </p>
-</article>
-
-    
-  </div>
-
-  
-    
-    <nav class="bar bar-footer clearfix" data-stick-bottom="">
-        <div class="bar-inner">
-        <ul class="pager pull-left">
-            
-            <li class="prev">
-                <a href="/page/2/">
-                    <i class="icon icon-angle-left"></i>
-                    上一页
-                </a>
-            </li>
-            
-            
-            <li class="next disabled">
-                <a href="javascript:;">
-                    下一页
-                    <i class="icon icon-angle-right"></i>                    
-                </a>
-            </li>
-            
-        </ul>
-        <div class="total-article bar-right">第 3 页,共 3 页</div>
+        <div class="panel panel-default panel-badger">
+            <div class="panel-body">
+                <figure class="media">
+                    <div class="media-left">
+                        <a href="/about" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatarnew.jpg" class="img-rounded w-full" alt="">
+        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading"><a href="/about" target="_blank"><span class="text-dark">Java小白_Mr.Yang</span><small class="ml-1x">Java 开发工程师</small></a></h3>
+                        <div>
+                            个人简介。
+                        </div>
+                    </div>
+                </figure>
+            </div>
         </div>
-    </nav>
+        
+    </div>
+  </article>
+  
     
- 
+    <section id="comments">
+        
+                                                            
+       <div id="SOHUCS"></div>
+
+                                                                
+    </section>
+    
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/06/12/浅析数据库连接池/" title="浅析数据库连接池"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/11/19/Java实现Email发送/" title="Java实现Email发送"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>打赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>觉得不错，给博主打赏一下吧</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/alipayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开支付宝,扫码打赏一杯咖啡钱!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/wechatpayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开微信,扫码打赏一杯咖啡钱!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
@@ -803,6 +696,18 @@
             </script>
             
     
+    
+        
+                                                    
+	<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+	<script type="text/javascript">
+	window.changyan.api.config({
+	appid: 'cyui87E8f',
+	conf: 'prod_475c88f5dcbd1e8f3c566a93f6c2f8b4'
+	});
+</script>
+
+                                                        
     
     
 
