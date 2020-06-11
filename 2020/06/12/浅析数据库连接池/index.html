@@ -17,32 +17,23 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>windows下kafka搭建 | Java小白的个人博客</title>
-  <meta name="description" content="一、什么是kafkaKafka是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据， 功能相同的还有Rabbitmq 、ActiveMQ 。 二、术语介绍Broker ：Kafka集群包含一个或多个服务器，这种服务器被称为brokerTopic：每条发布到Kafka集群的消息都">
-<meta name="keywords" content="kafka">
+  <title>浅析数据库连接池 | Java小白的个人博客</title>
+  <meta name="description" content="前言各位老友好，我是IT小白闯天下，今日我想带领大家学习的是，数据库连接池，每一位后台开发的朋友，后台作为前台的数据存储与支撑，对数据库操作是一个必不可少的开发过程，每次对数据库操作时都需要与数据库建立连接，那么使用数据库连接池可以高效率的完成数据库的数据连接对象管理，那么到底什么是数据库连接池呢？ 数据库连接池：数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连">
+<meta name="keywords" content="连接池">
 <meta property="og:type" content="article">
-<meta property="og:title" content="windows下kafka搭建">
-<meta property="og:url" content="http://yzx9607.coding.me/2019/01/30/windows下kafka搭建/index.html">
+<meta property="og:title" content="浅析数据库连接池">
+<meta property="og:url" content="http://yzx9607.coding.me/2020/06/12/浅析数据库连接池/index.html">
 <meta property="og:site_name" content="Java小白的个人博客">
-<meta property="og:description" content="一、什么是kafkaKafka是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据， 功能相同的还有Rabbitmq 、ActiveMQ 。 二、术语介绍Broker ：Kafka集群包含一个或多个服务器，这种服务器被称为brokerTopic：每条发布到Kafka集群的消息都">
+<meta property="og:description" content="前言各位老友好，我是IT小白闯天下，今日我想带领大家学习的是，数据库连接池，每一位后台开发的朋友，后台作为前台的数据存储与支撑，对数据库操作是一个必不可少的开发过程，每次对数据库操作时都需要与数据库建立连接，那么使用数据库连接池可以高效率的完成数据库的数据连接对象管理，那么到底什么是数据库连接池呢？ 数据库连接池：数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka1.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka2.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka3.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka4.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka5.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka6.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka7.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka8.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka9.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/kafka/kafka10.png">
-<meta property="og:updated_time" content="2019-01-30T09:47:32.582Z">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagHLcP0pj99SnWmnz7BHCXPy0pdrLbQ81ErASLwiacqGNYP42FIFbKiaozCuGRJLTqiaBVCFXHfKCnTbA/640?wx_fmt=png">
+<meta property="og:updated_time" content="2020-06-11T16:13:28.757Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="windows下kafka搭建">
-<meta name="twitter:description" content="一、什么是kafkaKafka是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据， 功能相同的还有Rabbitmq 、ActiveMQ 。 二、术语介绍Broker ：Kafka集群包含一个或多个服务器，这种服务器被称为brokerTopic：每条发布到Kafka集群的消息都">
-<meta name="twitter:image" content="http://yzx9607.coding.me/images/kafka/kafka1.png">
+<meta name="twitter:title" content="浅析数据库连接池">
+<meta name="twitter:description" content="前言各位老友好，我是IT小白闯天下，今日我想带领大家学习的是，数据库连接池，每一位后台开发的朋友，后台作为前台的数据存储与支撑，对数据库操作是一个必不可少的开发过程，每次对数据库操作时都需要与数据库建立连接，那么使用数据库连接池可以高效率的完成数据库的数据连接对象管理，那么到底什么是数据库连接池呢？ 数据库连接池：数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagHLcP0pj99SnWmnz7BHCXPy0pdrLbQ81ErASLwiacqGNYP42FIFbKiaozCuGRJLTqiaBVCFXHfKCnTbA/640?wx_fmt=png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://yzx9607.coding.me/2019/01/30/windows下kafka搭建/index.html">
+  <link rel="canonical" href="http://yzx9607.coding.me/2020/06/12/浅析数据库连接池/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Java小白的个人博客" type="application/atom+xml">
   
@@ -329,14 +320,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-windows下kafka搭建" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-浅析数据库连接池" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      windows下kafka搭建
+      浅析数据库连接池
     </h1>
   
 
@@ -344,15 +335,15 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/01/30/windows下kafka搭建/" class="article-date">
-	  <time datetime="2019-01-30T09:14:38.000Z" itemprop="datePublished">2019-01-30</time>
+	<a href="/2020/06/12/浅析数据库连接池/" class="article-date">
+	  <time datetime="2020-06-11T16:06:58.000Z" itemprop="datePublished">2020-06-12</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/kafka/">kafka</a>
+	<a class="article-tag-link" href="/tags/连接池/">连接池</a>
   </span>
 
 
@@ -360,36 +351,53 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2019/01/30/windows下kafka搭建/" class="leancloud_visitors" data-flag-title="windows下kafka搭建">0</span>
+    	<span id="/2020/06/12/浅析数据库连接池/" class="leancloud_visitors" data-flag-title="浅析数据库连接池">0</span>
     </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/01/30/windows下kafka搭建/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/06/12/浅析数据库连接池/#comments" class="article-comment-link">Comments</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="一、什么是kafka"><a href="#一、什么是kafka" class="headerlink" title="一、什么是kafka"></a>一、什么是kafka</h2><p>Kafka是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据， 功能相同的还有Rabbitmq 、ActiveMQ 。</p>
-<h2 id="二、术语介绍"><a href="#二、术语介绍" class="headerlink" title="二、术语介绍"></a>二、术语介绍</h2><p>Broker ：Kafka集群包含一个或多个服务器，这种服务器被称为broker<br>Topic：每条发布到Kafka集群的消息都有一个类别，这个类别被称为Topic。（物理上不同Topic的消息分开存储，逻辑上一个Topic的消息虽然保存于一个或多个broker上但用户只需指定消息的Topic即可生产或消费数据而不必关心数据存于何处）<br>Partition：Partition是物理上的概念，每个Topic包含一个或多个Partition.<br>Producer：消息发送者(提供者)，负责发布消息到Kafka broker<br>Consumer：消息消费者，向Kafka broker读取消息的客户端。<br>Consumer Group：每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）。</p>
-<h2 id="三、开始搭建"><a href="#三、开始搭建" class="headerlink" title="三、开始搭建"></a>三、开始搭建</h2><h4 id="1-搭建Java环境，配置JDK，环境变量记得配上CLASSPATH、JAVA-HOME、JRE-HOME，jdk下载地址：点我下载"><a href="#1-搭建Java环境，配置JDK，环境变量记得配上CLASSPATH、JAVA-HOME、JRE-HOME，jdk下载地址：点我下载" class="headerlink" title="1.搭建Java环境，配置JDK，环境变量记得配上CLASSPATH、JAVA_HOME、JRE_HOME，jdk下载地址：点我下载"></a>1.搭建Java环境，配置JDK，环境变量记得配上CLASSPATH、JAVA_HOME、JRE_HOME，jdk下载地址：<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">点我下载</a></h4><p><img src="/images/kafka/kafka1.png" alt=""></p>
-<h4 id="2-下载zookeeper，具体怎么安装启动，这里就不再讲述，之前文章提到过，点我查看，配置好进行启动"><a href="#2-下载zookeeper，具体怎么安装启动，这里就不再讲述，之前文章提到过，点我查看，配置好进行启动" class="headerlink" title="2.下载zookeeper，具体怎么安装启动，这里就不再讲述，之前文章提到过，点我查看，配置好进行启动"></a>2.下载zookeeper，具体怎么安装启动，这里就不再讲述，之前文章提到过，<a href="/2018/12/28/SpringBoot整合Dubbo与zookeeper纯注解版/">点我查看</a>，配置好进行启动</h4><p><img src="/images/kafka/kafka2.png" alt=""></p>
-<h4 id="3-下载kafka-去官网下载安装包，点击此处下载"><a href="#3-下载kafka-去官网下载安装包，点击此处下载" class="headerlink" title="3.下载kafka,去官网下载安装包，点击此处下载"></a>3.下载kafka,去官网下载安装包，<a href="http://kafka.apache.org/downloads" target="_blank" rel="noopener">点击此处下载</a></h4><p><img src="/images/kafka/kafka3.png" alt=""></p>
-<p><img src="/images/kafka/kafka4.png" alt=""></p>
-<h4 id="4-进行解压并配置，我本地存放在D-kafka下，在kafka文件加下创建kafka-logs文件夹，打开config目录，找到server-properties-进行修改，修改log-dirs地址-如要修改zk端口，则修改zookeeper-connect即可"><a href="#4-进行解压并配置，我本地存放在D-kafka下，在kafka文件加下创建kafka-logs文件夹，打开config目录，找到server-properties-进行修改，修改log-dirs地址-如要修改zk端口，则修改zookeeper-connect即可" class="headerlink" title="4.进行解压并配置，我本地存放在D:\kafka下，在kafka文件加下创建kafka-logs文件夹，打开config目录，找到server.properties 进行修改，修改log.dirs地址,,如要修改zk端口，则修改zookeeper.connect即可"></a>4.进行解压并配置，我本地存放在D:\kafka下，在kafka文件加下创建kafka-logs文件夹，打开config目录，找到server.properties 进行修改，修改log.dirs地址,,如要修改zk端口，则修改zookeeper.connect即可</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log.dirs=D:/kafka/kafka-logs</span><br><span class="line">zookeeper.connect=localhost:2181</span><br></pre></td></tr></table></figure>
-<h4 id="5-打开bin目录下，windows下的kafka-run-class-bat文件，修改CLASSPATH的配置，将set-CLASSPATH-CLASSPATH-”-1”-进行修改，在-CLASSPATH-左右加上双引号"><a href="#5-打开bin目录下，windows下的kafka-run-class-bat文件，修改CLASSPATH的配置，将set-CLASSPATH-CLASSPATH-”-1”-进行修改，在-CLASSPATH-左右加上双引号" class="headerlink" title="5.打开bin目录下，windows下的kafka-run-class.bat文件，修改CLASSPATH的配置，将set CLASSPATH=%CLASSPATH%;”%~1” 进行修改，在%CLASSPATH%左右加上双引号"></a>5.打开bin目录下，windows下的kafka-run-class.bat文件，修改CLASSPATH的配置，将set CLASSPATH=%CLASSPATH%;”%~1” 进行修改，在%CLASSPATH%左右加上双引号</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">goto :eof</span><br><span class="line">:concat</span><br><span class="line">IF not defined CLASSPATH (</span><br><span class="line">  set CLASSPATH="%~1"</span><br><span class="line">) ELSE (</span><br><span class="line">  set CLASSPATH="%CLASSPATH%";"%~1"</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h4 id="6-在D-kafka目录下，按住shift按键，鼠标右键，在此处打开powerShell窗口，启动kafka，命令如下"><a href="#6-在D-kafka目录下，按住shift按键，鼠标右键，在此处打开powerShell窗口，启动kafka，命令如下" class="headerlink" title="6.在D:\kafka目录下，按住shift按键，鼠标右键，在此处打开powerShell窗口，启动kafka，命令如下"></a>6.在D:\kafka目录下，按住shift按键，鼠标右键，在此处打开powerShell窗口，启动kafka，命令如下</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\windows\kafka-server-start.bat .\config\server.properties</span><br></pre></td></tr></table></figure>
-<h4 id="7-启动成功如下"><a href="#7-启动成功如下" class="headerlink" title="7.启动成功如下"></a>7.启动成功如下</h4><p><img src="/images/kafka/kafka5.png" alt=""></p>
-<h4 id="8-创建一个topics，打开bin-windows，打开powerShell新窗口，输入如下命令"><a href="#8-创建一个topics，打开bin-windows，打开powerShell新窗口，输入如下命令" class="headerlink" title="8.创建一个topics，打开bin/windows，打开powerShell新窗口，输入如下命令"></a>8.创建一个topics，打开bin/windows，打开powerShell新窗口，输入如下命令</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\kafka-topics.bat --create --zookeeper localhost:<span class="number">2181</span> --replication-factor <span class="number">1</span> --partitions <span class="number">1</span> --topic yang</span><br></pre></td></tr></table></figure>
-<h4 id="9-创建成功如下"><a href="#9-创建成功如下" class="headerlink" title="9.创建成功如下"></a>9.创建成功如下</h4><p><img src="/images/kafka/kafka6.png" alt=""></p>
-<h4 id="10-创建一个消息提供者，打开powerShell新窗口，输入如下指令"><a href="#10-创建一个消息提供者，打开powerShell新窗口，输入如下指令" class="headerlink" title="10.创建一个消息提供者，打开powerShell新窗口，输入如下指令"></a>10.创建一个消息提供者，打开powerShell新窗口，输入如下指令</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\kafka-console-producer.bat --broker-list localhost:<span class="number">9092</span> --topic yang</span><br></pre></td></tr></table></figure>
-<h4 id="11-创建成功如下，等待提供者输入"><a href="#11-创建成功如下，等待提供者输入" class="headerlink" title="11.创建成功如下，等待提供者输入"></a>11.创建成功如下，等待提供者输入</h4><p><img src="/images/kafka/kafka7.png" alt=""></p>
-<h4 id="12-创建一个消息消费者，打开powerShell新窗口，输入如下指令"><a href="#12-创建一个消息消费者，打开powerShell新窗口，输入如下指令" class="headerlink" title="12.创建一个消息消费者，打开powerShell新窗口，输入如下指令"></a>12.创建一个消息消费者，打开powerShell新窗口，输入如下指令</h4><p>旧版本指令</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\kafka-console-consumer.bat --zookeeper localhost:<span class="number">2181</span> --topic yang</span><br></pre></td></tr></table></figure>
-<p>新版本指令</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\kafka-console-consumer.bat --bootstrap-server localhost:<span class="number">9092</span> --topic yang --from-beginning</span><br></pre></td></tr></table></figure>
-<h4 id="13-创建成功如下，等待接收消息"><a href="#13-创建成功如下，等待接收消息" class="headerlink" title="13.创建成功如下，等待接收消息"></a>13.创建成功如下，等待接收消息</h4><p><img src="/images/kafka/kafka8.png" alt=""></p>
-<h4 id="14-在消息发送者上输入任意字符，稍等几秒后（第一次可能会有延迟），消息接收者会接收到发送者发送的消息，此时已经完成搭建"><a href="#14-在消息发送者上输入任意字符，稍等几秒后（第一次可能会有延迟），消息接收者会接收到发送者发送的消息，此时已经完成搭建" class="headerlink" title="14.在消息发送者上输入任意字符，稍等几秒后（第一次可能会有延迟），消息接收者会接收到发送者发送的消息，此时已经完成搭建"></a>14.在消息发送者上输入任意字符，稍等几秒后（第一次可能会有延迟），消息接收者会接收到发送者发送的消息，此时已经完成搭建</h4><p><img src="/images/kafka/kafka9.png" alt=""></p>
-<p><img src="/images/kafka/kafka10.png" alt=""></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>各位老友好，我是IT小白闯天下，今日我想带领大家学习的是，<strong>数据库连接池</strong>，每一位后台开发的朋友，后台作为前台的数据存储与支撑，对数据库操作是一个必不可少的开发过程，每次对数据库操作时都需要与数据库建立连接，那么使用数据库连接池可以高效率的完成数据库的数据连接对象管理，那么到底什么是数据库连接池呢？</p>
+<h2 id="数据库连接池："><a href="#数据库连接池：" class="headerlink" title="数据库连接池："></a><em>数据库连接池：</em></h2><p>数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个；释放空闲时间超过最大空闲时间的数据库连接来避免因为没有释放数据库连接而引起的数据库连接遗漏。这项技术能明显提高对数据库操作的性能。</p>
+<p>怎么理解呢：就是每次去操作数据库的时候，都需要与数据量进行连接，当我们完成数据操作的时候，就将连接释放，供别人使用。那每次操作都需要去建立连接，这样子不能将已创建的连接进行最大利用，且每次创建的时候，都需要耗费时间，还有一种情况是，创建完连接之后，没有将连接释放，从而浪费这个连接对象，数据库连接池就是将数据库连接进行统一管理，从而提升对数据库操作的性能及简化整个操作过程。</p>
+<h2 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h2><p>那么数据库连接池使用的过程，肯定要限制最小的链接数量来满足项目的日常使用，也要限制最大连接数量，保证数据库的性能（过多的连接会影响到数据库的性能），那么使用连接池的时候，有哪些参数呢？这里列举了一个重要的参数：</p>
+<p>​    <strong>最大连接数（maxActive）</strong></p>
+<p>​    连接池支持的最大连接数，最多能支持的连接数。</p>
+<p>​    <strong>最大空闲连接数（maxIdle）</strong></p>
+<p>​    连接池中最多可空闲的连接数量，其余空闲的会被释放，来保证性能。</p>
+<p>​    <strong>*最小空闲连接数（minldle）*</strong></p>
+<p>​    释放连接时，最少保留的空闲的连接数量。</p>
+<p>​    <strong>*初始化连接数（initialSize）*</strong></p>
+<p>​    数据库初始化时，创建的连接数量。</p>
+<p>​    <strong>*最大等待时间（maxWait）*</strong></p>
+<p>​    连接池中连接用完时,新的请求等待时间,毫秒</p>
+<p>​    <strong>*最大闲置时间（removeAbandonedTimeout）*</strong></p>
+<p>​    当连接一直没程序使用时，超过此时间，此链接会被回收到连接池中。</p>
+<p>​    <strong>*最大空闲时间（minEvictableIdleTimeMillis）*</strong></p>
+<p>当此链接在连接池中闲置超过此时间，此连接会被释放。</p>
+<h2 id="工作流程介绍"><a href="#工作流程介绍" class="headerlink" title="工作流程介绍"></a>工作流程介绍</h2><p>连接池通过程序计算，将数据库连接最大化利用，那么它的工作原理是什么呢？我们来看下面这张图。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/5z2ZwcUVagHLcP0pj99SnWmnz7BHCXPy0pdrLbQ81ErASLwiacqGNYP42FIFbKiaozCuGRJLTqiaBVCFXHfKCnTbA/640?wx_fmt=png" alt="img"></p>
+<h3 id="数据库连接池工作流程"><a href="#数据库连接池工作流程" class="headerlink" title="数据库连接池工作流程"></a><strong>数据库连接池工作流程</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">（1）建立数据库连接池对象（服务器启动）。</span><br><span class="line"></span><br><span class="line">（2）按照事先指定的参数创建初始数量的数据库连接（即：空闲连接数）。</span><br><span class="line"></span><br><span class="line">（3）对于一个数据库访问请求，直接从连接池中得到一个连接。如果数据库连接池对象中没有空闲的连接，且连接数没有达到最大（即：最大活跃连接数），创建一个新的数据库连接。</span><br><span class="line"></span><br><span class="line">（4）存取数据库。</span><br><span class="line"></span><br><span class="line">（5）关闭数据库，释放所有数据库连接（此时的关闭数据库连接，并非真正关闭，而是将其放入空闲队列中。如实际空闲连接数大于初始空闲连接数则释放连接）。</span><br><span class="line"></span><br><span class="line">（6）释放数据库连接池对象（服务器停止、维护期间，释放数据库连接池对象，并释放所有连接）。</span><br></pre></td></tr></table></figure>
+<p><strong>程序处理具体流程分为两个流程：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 程序获取连接流程</span><br><span class="line">2. 定时器处理连接状态流程</span><br></pre></td></tr></table></figure>
+<h3 id="程序获取连接流程"><a href="#程序获取连接流程" class="headerlink" title="程序获取连接流程"></a>程序获取连接流程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.程序获取连接对象</span><br><span class="line"></span><br><span class="line">2.连接池判断是否有闲置连接</span><br><span class="line"></span><br><span class="line">3.返回指定的连接对象给程序</span><br></pre></td></tr></table></figure>
+<h3 id="定时器处理流程"><a href="#定时器处理流程" class="headerlink" title="定时器处理流程"></a>定时器处理流程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.定时器遍历所有连接</span><br><span class="line"></span><br><span class="line">2.查看连接状态，关闭的就从数据库连接池删除</span><br><span class="line"></span><br><span class="line">3.处理空闲且超过最大空闲时间的链接</span><br><span class="line"></span><br><span class="line">4.处理超过最大使用次数的连接</span><br><span class="line"></span><br><span class="line">5.查看连接数量是否少于最小连接数量，小于则创建连接去补充到连接池中。</span><br></pre></td></tr></table></figure>
+<p>常见的数据库连接池</p>
+<p>目前市场上有几款主流的数据库连接池，大家可以参考使用</p>
+<p><strong>C3p0</strong></p>
+<p>开源的JDBC连接池，实现了数据源和JNDI绑定，支持JDBC3规范和JDBC2的标准扩展。目前使用它的开源项目有Hibernate、Spring等。单线程，性能较差，适用于小型系统，代码600KB左右。</p>
+<p><strong>DBCP</strong></p>
+<p>由Apache开发的一个Java数据库连接池项目， Jakarta commons-pool对象池机制，Tomcat使用的连接池组件就是DBCP。单独使用dbcp需要3个包：common-dbcp.jar,common-pool.jar,common-collections.jar，预先将数据库连接放在内存中，应用程序需要建立数据库连接时直接到连接池中申请一个就行，用完再放回。单线程，并发量低，性能不好，适用于小型系统。</p>
+<p><strong>*Tomcat Jdbc Pool*</strong></p>
+<p>Tomcat在7.0以前都是使用common-dbcp做为连接池组件，但是dbcp是单线程，为保证线程安全会锁整个连接池，性能较差，dbcp有超过60个类，也相对复杂。Tomcat从7.0开始引入了新增连接池模块叫做Tomcat jdbc pool，基于Tomcat JULI，使用Tomcat日志框架，完全兼容dbcp，通过异步方式获取连接，支持高并发应用环境，超级简单核心文件只有8个，支持JMX，支持XA Connection。</p>
+<p><strong>*BoneCP*</strong></p>
+<p>BoneCP是一个高效、免费、开源的Java数据库连接池实现库。设计初衷就是为了提高数据库连接池性能，根据某些测试数据显示，BoneCP的速度是最快的，要比当时第二快速的连接池快25倍左右，完美集成到一些持久化产品如Hibernate和DataNucleus中。BoneCP特色：高度可扩展，快速；连接状态切换的回调机制；允许直接访问连接；自动化重置能力；JMX支持；懒加载能力；支持XML和属性文件配置方式；较好的Java代码组织，100%单元测试分支代码覆盖率；代码40KB左右。</p>
+<p><strong>*Druid*</strong></p>
+<p>Druid是Java语言中最好的数据库连接池，Druid能够提供强大的监控和扩展功能，是一个可用于大数据实时查询和分析的高容错、高性能的开源分布式系统</p>
+<p>今天到这里了，使用连接池可以提高程序的连接效率及数据处理性能，有兴趣的朋友可以自己尝试手写一个数据库连接池。希望有错误请指出，多多交流技术经验。</p>
 
       
     </div>
@@ -434,13 +442,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2019/01/31/SpringBoot整合消息队列工具kafka/" title="SpringBoot整合消息队列工具kafka"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2019/01/30/SpringBoot集成hibernate/" title="SpringBoot整合hibernate纯注解版"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/11/19/Java实现Email发送/" title="Java实现Email发送"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
