@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="referrer" content="never">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>设计模式系列（一）—简单工厂模式 | Java小白的个人博客</title>
+  <meta name="description" content="​        hello各位程序员大哥大姐好，上期我讲解了设计模式的概念及分类，学习了UML类图的认识，今天我们就趁热打铁，学习一下简单工厂模式，以后每一个模式会出一篇文章，供各位及我自己查阅学习。斗图还是不能忘的，为了苟且的生活，大家加油，生活不止眼前的苟且，还有远方的苟且。  第一节：简单工厂模式概述 ​        简单工厂模式（Smiple Factory Pattern）：定义一个">
+<meta name="keywords" content="设计模式,UML类图,简单工厂模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式系列（一）—简单工厂模式">
+<meta property="og:url" content="http://yzx9607.coding.me/2020/12/06/设计模式系列（一）—简单工厂模式/index.html">
+<meta property="og:site_name" content="Java小白的个人博客">
+<meta property="og:description" content="​        hello各位程序员大哥大姐好，上期我讲解了设计模式的概念及分类，学习了UML类图的认识，今天我们就趁热打铁，学习一下简单工厂模式，以后每一个模式会出一篇文章，供各位及我自己查阅学习。斗图还是不能忘的，为了苟且的生活，大家加油，生活不止眼前的苟且，还有远方的苟且。  第一节：简单工厂模式概述 ​        简单工厂模式（Smiple Factory Pattern）：定义一个">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yzx9607.coding.me/assets/640.jpeg">
+<meta property="og:image" content="http://yzx9607.coding.me/assets/image-1607443496108.png">
+<meta property="og:image" content="http://yzx9607.coding.me/assets/image-1607443856310.png">
+<meta property="og:updated_time" content="2020-12-08T16:11:02.717Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式系列（一）—简单工厂模式">
+<meta name="twitter:description" content="​        hello各位程序员大哥大姐好，上期我讲解了设计模式的概念及分类，学习了UML类图的认识，今天我们就趁热打铁，学习一下简单工厂模式，以后每一个模式会出一篇文章，供各位及我自己查阅学习。斗图还是不能忘的，为了苟且的生活，大家加油，生活不止眼前的苟且，还有远方的苟且。  第一节：简单工厂模式概述 ​        简单工厂模式（Smiple Factory Pattern）：定义一个">
+<meta name="twitter:image" content="http://yzx9607.coding.me/assets/640.jpeg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yzx9607.coding.me/2020/12/06/设计模式系列（一）—简单工厂模式/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Java小白的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+        <div class="navbar-header">
+            
+                
+                    <div class="profile-block text-center">
+                        <a id="avatar" href="/about" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatarnew.jpg" width="200" height="200">
+        </a>
+                        <h2 id="name" class="hidden-xs hidden-sm">
+                            Java小白_Mr.Yang
+                        </h2>
+                        <h3 id="title" class="hidden-xs hidden-sm hidden-md">
+                            Java 开发工程师
+                        </h3>
+                        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ZhengZhou, China</small>
+                    </div>
+                    
+                        <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+                            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        </div>
+        <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+            <ul class="nav navbar-nav main-nav ">
+                
+                    
+                        <li class="menu-item menu-item-home">
+                            <a href="/.">
+                                
+                                    <i class="icon icon-home-fill"></i>
+                                    
+                                        <span class="menu-title">Home</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-archives">
+                            <a href="/archives">
+                                
+                                    <i class="icon icon-archives-fill"></i>
+                                    
+                                        <span class="menu-title">Archives</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-tags">
+                            <a href="/tags">
+                                
+                                    <i class="icon icon-tags"></i>
+                                    
+                                        <span class="menu-title">Tags</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-repository">
+                            <a href="https://gitee.com/yzx9607">
+                                
+                                    <i class="icon icon-project"></i>
+                                    
+                                        <span class="menu-title">Repository</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-links">
+                            <a href="/links">
+                                
+                                    <i class="icon icon-friendship"></i>
+                                    
+                                        <span class="menu-title">Links</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-about">
+                            <a href="/about">
+                                
+                                    <i class="icon icon-cup-fill"></i>
+                                    
+                                        <span class="menu-title">About</span>
+                            </a>
+                        </li>
+                        
+            </ul>
+            
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        </nav>
+    </div>
+</header>
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActiveMQ/">ActiveMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email/">Email</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GOF设计模式/">GOF设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hystrix/">Hystrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java基础/">Java基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVVM/">MVVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSql/">NoSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageHelper/">PageHelper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML类图/">UML类图</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/">dubbo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/">kafka</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/properties/">properties</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpc/">rpc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shiro/">shiro</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yml/">yml</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前后端分离/">前后端分离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件流/">文件流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简单工厂模式/">简单工厂模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连接池/">连接池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高并发/">高并发</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ActiveMQ/" style="font-size: 13px;">ActiveMQ</a> <a href="/tags/Email/" style="font-size: 13px;">Email</a> <a href="/tags/GOF设计模式/" style="font-size: 13px;">GOF设计模式</a> <a href="/tags/Hystrix/" style="font-size: 13px;">Hystrix</a> <a href="/tags/Java基础/" style="font-size: 13px;">Java基础</a> <a href="/tags/MVVM/" style="font-size: 13px;">MVVM</a> <a href="/tags/Mybatis/" style="font-size: 13.25px;">Mybatis</a> <a href="/tags/NoSql/" style="font-size: 13px;">NoSql</a> <a href="/tags/PageHelper/" style="font-size: 13px;">PageHelper</a> <a href="/tags/SpringBoot/" style="font-size: 14px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.25px;">SpringCloud</a> <a href="/tags/UML类图/" style="font-size: 13.25px;">UML类图</a> <a href="/tags/dubbo/" style="font-size: 13.25px;">dubbo</a> <a href="/tags/eclipse/" style="font-size: 13.75px;">eclipse</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hibernate/" style="font-size: 13px;">hibernate</a> <a href="/tags/jdk/" style="font-size: 13px;">jdk</a> <a href="/tags/kafka/" style="font-size: 13.25px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/maven/" style="font-size: 13.5px;">maven</a> <a href="/tags/properties/" style="font-size: 13px;">properties</a> <a href="/tags/redis/" style="font-size: 13.5px;">redis</a> <a href="/tags/rpc/" style="font-size: 13.5px;">rpc</a> <a href="/tags/shiro/" style="font-size: 13.25px;">shiro</a> <a href="/tags/tomcat/" style="font-size: 13px;">tomcat</a> <a href="/tags/yml/" style="font-size: 13px;">yml</a> <a href="/tags/zookeeper/" style="font-size: 13px;">zookeeper</a> <a href="/tags/分布式/" style="font-size: 13.25px;">分布式</a> <a href="/tags/前后端分离/" style="font-size: 13px;">前后端分离</a> <a href="/tags/微服务/" style="font-size: 13px;">微服务</a> <a href="/tags/文件流/" style="font-size: 13px;">文件流</a> <a href="/tags/简单工厂模式/" style="font-size: 13px;">简单工厂模式</a> <a href="/tags/设计模式/" style="font-size: 13.25px;">设计模式</a> <a href="/tags/连接池/" style="font-size: 13px;">连接池</a> <a href="/tags/集群/" style="font-size: 13px;">集群</a> <a href="/tags/高并发/" style="font-size: 13.75px;">高并发</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/06/设计模式系列（一）—简单工厂模式/" class="title">设计模式系列（一）—简单工厂模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-05T16:03:51.000Z" itemprop="datePublished">2020-12-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/" class="title">什么是设计模式？详解设计模式概念及几大原则</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-08T14:20:46.000Z" itemprop="datePublished">2020-11-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/19/何为前后端分离？/" class="title">何为前后端分离？</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-19T06:42:33.000Z" itemprop="datePublished">2020-06-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/12/浅析数据库连接池/" class="title">浅析数据库连接池</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-11T16:06:58.000Z" itemprop="datePublished">2020-06-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/11/浅谈分布式与集群的概念/" class="title">浅谈分布式与集群的概念</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-10T16:18:27.000Z" itemprop="datePublished">2020-06-11</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-设计模式系列（一）—简单工厂模式" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设计模式系列（一）—简单工厂模式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/12/06/设计模式系列（一）—简单工厂模式/" class="article-date">
+	  <time datetime="2020-12-05T16:03:51.000Z" itemprop="datePublished">2020-12-06</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/UML类图/">UML类图</a>, <a class="article-tag-link" href="/tags/简单工厂模式/">简单工厂模式</a>, <a class="article-tag-link" href="/tags/设计模式/">设计模式</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2020/12/06/设计模式系列（一）—简单工厂模式/" class="leancloud_visitors" data-flag-title="设计模式系列（一）—简单工厂模式">0</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/12/06/设计模式系列（一）—简单工厂模式/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>​        hello各位程序员大哥大姐好，上期我讲解了设计模式的概念及分类，学习了UML类图的认识，今天我们就趁热打铁，学习一下简单工厂模式，以后每一个模式会出一篇文章，供各位及我自己查阅学习。斗图还是不能忘的，为了苟且的生活，大家加油，生活不止眼前的苟且，还有远方的苟且。</p>
+<p><img src="/assets/640.jpeg" alt="img"></p>
+<p>第一节：简单工厂模式概述</p>
+<p>​        简单工厂模式（Smiple Factory Pattern）：定义一个工厂类，他可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。</p>
+<p>​        简单理解：“工厂”二字，顾名思义工厂就是可以模式化生产某种特殊类型的产品的地方，例如一个鞋厂，客户要求生产的是运动鞋还是休闲鞋还是皮鞋，工厂根据要求生产出具体的鞋子的产品，但是不管是哪种鞋子，它的种类都属于“鞋子”，客户提出的要求就是“参数不同”，返回不同的实例就是厂子生产后交付的产品不同，被创建的实例通常有共同的父类就更好理解了，就是无论是什么鞋子，它的分类都是“鞋子”；</p>
+<p><img src="/assets/image-1607443496108.png" alt="img"></p>
+<p>第二节：简单工厂模式的结构</p>
+<p>  简单工厂模式的结构包含如下三个角色：</p>
+<p>（1）工厂角色（Factory）：工厂角色即工厂类，他是简单工厂模式的核心，负责创建所有产品实例的内部逻辑；工厂类可以被外界直接调用，创建所需要的产品对象；在工厂类中提供进后台的工厂方法factoryMethod(),它返回的产品类型为抽象的产品类型Product;类似于第一节的“鞋厂”角色。</p>
+<p>（2）抽象产品角色（Product）：它是工厂类创建的所有对象的父类，封装了各种产品对象的公有方法，它的引入提高了系统的灵活性，使得在工厂类中只需要定义一个通用的工厂方法，因为所有创建的具体产品都是其子类对象；类似与第一节中的“鞋”类。</p>
+<p>（3）具体产品角色（ConcreteProduct）：它是简单工厂的创建目标，所有被创建的对象都充当这个角色的某个具体类的实例。每一个具体产品角色都集成了抽象产品角色，需要在实现在抽象产品中声明的抽象方法。</p>
+<p>简单工厂模式类图：</p>
+<p><img src="/assets/image-1607443856310.png" alt="img"> </p>
+<p>  简单工厂模式的实现流程：</p>
+<p>​        首先将需要创建的各种不同对象的相关代码封装到不同的类中，这些类称为具体产品类，而将它们的公共的代码进行抽象和提取后，封装在一个抽象产品中，每一个具体产品都是抽象产品的子类；然后提供一个工厂类用于创建各种产品，在工厂类中提供一个创建产品的工厂方法，该方法可以根据传入的参数不同创建不同的具体产品对象；客户端只需要调用工厂类的工厂方法并传入响应的参数即可得到一个具体产品对象。</p>
+<p>简单工厂模式的代码实现</p>
+<p>1.定义抽象产品</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.easyfactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Product</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 抽象产品类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/6 15:39</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 所有产品的公共业务方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publicMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是公用方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//所有产品都需要实现的的业务方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>定义具体产品类A：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.easyfactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcreteProductA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 具体产品</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/6 15:46</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductA</span> <span class="keyword">extends</span> <span class="title">Product</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是产品"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义具体产品类B：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.easyfactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcreteProductB</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 具体产品</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/6 15:46</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductB</span> <span class="keyword">extends</span> <span class="title">Product</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是产品B"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义工厂类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.easyfactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Factory</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 工厂类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/6 15:50</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 静态工厂方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arg</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Product <span class="title">getProduct</span><span class="params">(String arg)</span></span>&#123;</span><br><span class="line">        <span class="comment">//定义返回值</span></span><br><span class="line">        Product product = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"A"</span>.equals(arg))&#123;</span><br><span class="line">            <span class="comment">//初始化为A</span></span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProductA();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"B"</span>.equals(arg))&#123;</span><br><span class="line">            <span class="comment">//初始化为B</span></span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProductB();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写客户端测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.easyfactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Client</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 客户端</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/6 15:56</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Product product;</span><br><span class="line">        <span class="comment">//通过工厂类创建具体产品对象</span></span><br><span class="line">        product = Factory.getProduct(<span class="string">"A"</span>);</span><br><span class="line">        product.publicMethod();</span><br><span class="line">        product.method();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>6.测试结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是公用方法 </span><br><span class="line">我是产品A</span><br></pre></td></tr></table></figure>
+<p>第四节：</p>
+<p>简单工厂模式的优缺点分析及适用场景</p>
+<p>优点：</p>
+<p>（1）工厂类包含必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例，客户端可以免除直接创建产品对象的职责，而仅仅“消费”产品，简单工厂模式实现了对象创建和使用的分离。</p>
+<p>（2）客户端无须知道所创建的具体产品类的类名，只需要具体产品类所对应的参数即可，使用抽象产品接收即可使用具体方法，也减少了对某些复杂类名的记忆。</p>
+<p>（3）可以在客户端引入配置文件，将参数与具体产品类进行关联，这样客户端就可以不修改代码的情况下增加新的具体产品类，可提高系统的灵活性。</p>
+<p>缺点:</p>
+<p>（1）由于工厂类集中了所有产品的创建逻辑、职责过重，一旦不能正常工作，整个系统则不能正常运转。</p>
+<p>（2）使用简单工厂模式势必会增加系统中类的个数，增加了系统的复杂度和理解难度。</p>
+<p>（3）系统扩展困难，一旦添加新的产品，就要修改工厂模式逻辑，在产品较多时会造成工厂逻辑过于复杂，不利于系统的扩展和维护。</p>
+<p>（4）简单工厂模式使用了静态工厂方法，工厂无法形成基于继承的等级结构（不能使用泛化）。</p>
+<p>适用场景：</p>
+<p>（1）工厂类负责创建的对象比较少时，此时不会造成工厂方法的业务逻辑太过复杂。</p>
+<p>（2）客户端只知道传入工厂类的参数，对于如何创建对象并不会关心。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      
+    
+        <div class="panel panel-default panel-badger">
+            <div class="panel-body">
+                <figure class="media">
+                    <div class="media-left">
+                        <a href="/about" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatarnew.jpg" class="img-rounded w-full" alt="">
+        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading"><a href="/about" target="_blank"><span class="text-dark">Java小白_Mr.Yang</span><small class="ml-1x">Java 开发工程师</small></a></h3>
+                        <div>
+                            个人简介。
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        </div>
+        
+    </div>
+  </article>
+  
+    
+    <section id="comments">
+        
+                                                            
+       <div id="SOHUCS"></div>
+
+                                                                
+    </section>
+    
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/" title="什么是设计模式？详解设计模式概念及几大原则"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>打赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>觉得不错，给博主打赏一下吧</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/alipayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开支付宝,扫码打赏一杯咖啡钱!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/wechatpayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开微信,扫码打赏一杯咖啡钱!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        <div class="copyright">
+            
+        </div>
+        <div class="BbeiAn-info" "="">
+		<a href="http://ha.beian.miit.gov.cn/ ">豫ICP备-19021650号</a>
+	</div>
+</footer>
+  <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+    <link href="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script>
+        //利用 FancyBox 实现点击图片放大
+        $(document).ready(function() {
+            $('article img').not('[hidden]').not('.panel-body img').each(function () {
+                var $image = $(this);
+                var imageCaption = $image.attr('alt');
+                var $imageWrapLink = $image.parent('a');
+                if ($imageWrapLink.length < 1) {
+                var src = this.getAttribute('src');
+                var idx = src.lastIndexOf('?');
+                if (idx != -1) {
+                    src = src.substring(0, idx);
+                }
+                $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+                }
+                $imageWrapLink.attr('data-fancybox', 'images');
+                if (imageCaption) {
+                $imageWrapLink.attr('data-caption', imageCaption);
+                }
+            });
+            $().fancybox({
+                selector: '[data-fancybox="images"]',
+                hash: false,
+                loop: false,
+            }); 
+        });
+    </script>
+    
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+
+        
+            <!-- custom analytics part create by xiamo -->
+            <script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+            <script>
+                AV.init({
+                    appId: '7zI4DxIGDY35x3d1h6XmX1ys-gzGzoHsz',
+                    appKey: 'Lg3fMUTGskzVFEM77aiKqVUk'
+                });
+
+                function showTime(Counter) {
+                    var query = new AV.Query(Counter);
+                    var visitors = $('.leancloud_visitors');
+                    query.greaterThanOrEqualTo("time", 0);
+                    query.find({
+                        success: function(results) {
+                            if (results.length == 0) {
+                                return;
+                            }
+                            var data = results;
+                            visitors.each(function() {
+                                var url = $(this).attr('id').trim();
+                                for (var i = 0; i < data.length; i++) {
+                                    var object = data[i];
+                                    var content = object.get('time');
+                                    var _url = object.get('url')
+                                    if (url == _url) {
+                                        $(this).text(content);
+                                    }
+                                }
+                            })
+
+                        },
+                        error: function(object, error) {
+                            console.log("Error: " + error.code + " " + error.message);
+                        }
+                    });
+                }
+
+                function addCount(Counter) {
+                    var Counter = AV.Object.extend("Counter");
+                    url = $(".leancloud_visitors").attr('id').trim();
+                    title = $(".leancloud_visitors").attr('data-flag-title').trim();
+                    var query = new AV.Query(Counter);
+                    query.equalTo("url", url);
+                    query.find({
+                        success: function(results) {
+                            if (results.length > 0) {
+                                var counter = results[0];
+                                counter.fetchWhenSave(true);
+                                counter.increment("time");
+                                counter.save(null, {
+                                    success: function(counter) {
+                                        var content = counter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(counter, error) {
+                                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                                    }
+                                });
+                            } else {
+                                var newcounter = new Counter();
+                                newcounter.set("title", title);
+                                newcounter.set("url", url);
+                                newcounter.set("time", 1);
+                                newcounter.save(null, {
+                                    success: function(newcounter) {
+                                        console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                        var content = newcounter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(newcounter, error) {
+                                        console.log('Failed to create');
+                                    }
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            console.log('Error:' + error.code + " " + error.message);
+                        }
+                    });
+                }
+                $(function() {
+                    var Counter = AV.Object.extend("Counter");
+                    if ($('.leancloud_visitors').length == 1) {
+                        addCount(Counter);
+                    } else {
+                        showTime(Counter);
+                    }
+                });
+            </script>
+            
+    
+    
+        
+                                                    
+	<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+	<script type="text/javascript">
+	window.changyan.api.config({
+	appid: 'cyui87E8f',
+	conf: 'prod_475c88f5dcbd1e8f3c566a93f6c2f8b4'
+	});
+</script>
+
+                                                        
+    
+    
+
+
+
+</body>
+</html>
