@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="referrer" content="never">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>什么是设计模式？详解设计模式概念及几大原则 | Java小白的个人博客</title>
+  <meta name="description" content="​    hello，各位小伙伴大家好，又到了一篇一次的斗图环节，天气冷了，各位注意保暖。 今天我们来讲讲设计模式，在我们学习Java的时候，时常听到单例模式，多例模式，还有使用Spring的时候，默认采用的单例模式，你所听到的“饱汉式”、“饿汉式”，都是对设计模式的形容。那么什么是设计模式呢？它又是什么概念呢。 设计模式的概念：​    设计模式（Design pattern）代表了最佳的实践，">
+<meta name="keywords" content="设计模式,GOF设计模式,UML图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是设计模式？详解设计模式概念及几大原则">
+<meta property="og:url" content="http://yzx9607.coding.me/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/index.html">
+<meta property="og:site_name" content="Java小白的个人博客">
+<meta property="og:description" content="​    hello，各位小伙伴大家好，又到了一篇一次的斗图环节，天气冷了，各位注意保暖。 今天我们来讲讲设计模式，在我们学习Java的时候，时常听到单例模式，多例模式，还有使用Spring的时候，默认采用的单例模式，你所听到的“饱汉式”、“饿汉式”，都是对设计模式的形容。那么什么是设计模式呢？它又是什么概念呢。 设计模式的概念：​    设计模式（Design pattern）代表了最佳的实践，">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/8c8c670626cd437a9fa6a01361e07372/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/3c848d2eff684bf99380549ecbfbbac2/3-1q113133f4161.gif">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/e356f0707a3a4cda82b5af786bc4fa3f/u=1240639428,987080869&fm=26&gp=0.jpg.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/bd07d7c063a841699ccc9c958bd79913/timg.gif">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/3c848d2eff684bf99380549ecbfbbac2/3-1q113133f4161.gif">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/e404b23229c546d280935bfce21028da/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/2fb762e47b2a43e2944d3a88a61d88de/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/2b0ccb3736b84a8b9cb627d0789dc4bf/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/7447d05ee3844ea3b6458ee1f14319f1/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/0cceff587876473782eef8b496993840/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/2ef4c0d36a9a4078a0a3213e675c24a2/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/c982ea6970aa484fa1bd8443b4024277/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/2e0c4b2c7fea4aca8389c7589f78df83/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/705a397327d44902ab48610b9c2754f4/image.png">
+<meta property="og:image" content="d:/YouDaoNote/yzx9607@163.com/84e1c66d932c46a690d9624fee7a9e94/image.png">
+<meta property="og:updated_time" content="2020-12-08T14:57:38.236Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是设计模式？详解设计模式概念及几大原则">
+<meta name="twitter:description" content="​    hello，各位小伙伴大家好，又到了一篇一次的斗图环节，天气冷了，各位注意保暖。 今天我们来讲讲设计模式，在我们学习Java的时候，时常听到单例模式，多例模式，还有使用Spring的时候，默认采用的单例模式，你所听到的“饱汉式”、“饿汉式”，都是对设计模式的形容。那么什么是设计模式呢？它又是什么概念呢。 设计模式的概念：​    设计模式（Design pattern）代表了最佳的实践，">
+<meta name="twitter:image" content="d:/YouDaoNote/yzx9607@163.com/8c8c670626cd437a9fa6a01361e07372/image.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yzx9607.coding.me/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Java小白的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+        <div class="navbar-header">
+            
+                
+                    <div class="profile-block text-center">
+                        <a id="avatar" href="/about" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatarnew.jpg" width="200" height="200">
+        </a>
+                        <h2 id="name" class="hidden-xs hidden-sm">
+                            Java小白_Mr.Yang
+                        </h2>
+                        <h3 id="title" class="hidden-xs hidden-sm hidden-md">
+                            Java 开发工程师
+                        </h3>
+                        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ZhengZhou, China</small>
+                    </div>
+                    
+                        <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+                            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        </div>
+        <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+            <ul class="nav navbar-nav main-nav ">
+                
+                    
+                        <li class="menu-item menu-item-home">
+                            <a href="/.">
+                                
+                                    <i class="icon icon-home-fill"></i>
+                                    
+                                        <span class="menu-title">Home</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-archives">
+                            <a href="/archives">
+                                
+                                    <i class="icon icon-archives-fill"></i>
+                                    
+                                        <span class="menu-title">Archives</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-tags">
+                            <a href="/tags">
+                                
+                                    <i class="icon icon-tags"></i>
+                                    
+                                        <span class="menu-title">Tags</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-repository">
+                            <a href="https://gitee.com/yzx9607">
+                                
+                                    <i class="icon icon-project"></i>
+                                    
+                                        <span class="menu-title">Repository</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-links">
+                            <a href="/links">
+                                
+                                    <i class="icon icon-friendship"></i>
+                                    
+                                        <span class="menu-title">Links</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-about">
+                            <a href="/about">
+                                
+                                    <i class="icon icon-cup-fill"></i>
+                                    
+                                        <span class="menu-title">About</span>
+                            </a>
+                        </li>
+                        
+            </ul>
+            
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        </nav>
+    </div>
+</header>
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActiveMQ/">ActiveMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email/">Email</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GOF设计模式/">GOF设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hystrix/">Hystrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java基础/">Java基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSql/">NoSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageHelper/">PageHelper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML图/">UML图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/">dubbo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/">kafka</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/properties/">properties</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpc/">rpc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shiro/">shiro</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yml/">yml</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件流/">文件流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连接池/">连接池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高并发/">高并发</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ActiveMQ/" style="font-size: 13px;">ActiveMQ</a> <a href="/tags/Email/" style="font-size: 13px;">Email</a> <a href="/tags/GOF设计模式/" style="font-size: 13px;">GOF设计模式</a> <a href="/tags/Hystrix/" style="font-size: 13px;">Hystrix</a> <a href="/tags/Java基础/" style="font-size: 13px;">Java基础</a> <a href="/tags/Mybatis/" style="font-size: 13.25px;">Mybatis</a> <a href="/tags/NoSql/" style="font-size: 13px;">NoSql</a> <a href="/tags/PageHelper/" style="font-size: 13px;">PageHelper</a> <a href="/tags/SpringBoot/" style="font-size: 14px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.25px;">SpringCloud</a> <a href="/tags/UML图/" style="font-size: 13px;">UML图</a> <a href="/tags/dubbo/" style="font-size: 13.25px;">dubbo</a> <a href="/tags/eclipse/" style="font-size: 13.75px;">eclipse</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hibernate/" style="font-size: 13px;">hibernate</a> <a href="/tags/jdk/" style="font-size: 13px;">jdk</a> <a href="/tags/kafka/" style="font-size: 13.25px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/maven/" style="font-size: 13.5px;">maven</a> <a href="/tags/properties/" style="font-size: 13px;">properties</a> <a href="/tags/redis/" style="font-size: 13.5px;">redis</a> <a href="/tags/rpc/" style="font-size: 13.5px;">rpc</a> <a href="/tags/shiro/" style="font-size: 13.25px;">shiro</a> <a href="/tags/tomcat/" style="font-size: 13px;">tomcat</a> <a href="/tags/yml/" style="font-size: 13px;">yml</a> <a href="/tags/zookeeper/" style="font-size: 13px;">zookeeper</a> <a href="/tags/分布式/" style="font-size: 13.25px;">分布式</a> <a href="/tags/微服务/" style="font-size: 13px;">微服务</a> <a href="/tags/文件流/" style="font-size: 13px;">文件流</a> <a href="/tags/设计模式/" style="font-size: 13px;">设计模式</a> <a href="/tags/连接池/" style="font-size: 13px;">连接池</a> <a href="/tags/集群/" style="font-size: 13px;">集群</a> <a href="/tags/高并发/" style="font-size: 13.75px;">高并发</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/" class="title">什么是设计模式？详解设计模式概念及几大原则</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-08T14:20:46.000Z" itemprop="datePublished">2020-11-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/19/何为前后端分离？/" class="title">何为前后端分离？</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-19T06:42:33.000Z" itemprop="datePublished">2020-06-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/12/浅析数据库连接池/" class="title">浅析数据库连接池</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-11T16:06:58.000Z" itemprop="datePublished">2020-06-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/11/浅谈分布式与集群的概念/" class="title">浅谈分布式与集群的概念</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-10T16:18:27.000Z" itemprop="datePublished">2020-06-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2019/11/19/Java实现Email发送/" class="title">Java实现Email发送</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-11-19T02:15:09.000Z" itemprop="datePublished">2019-11-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-什么是设计模式？详解设计模式概念及几大原则" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      什么是设计模式？详解设计模式概念及几大原则
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/" class="article-date">
+	  <time datetime="2020-11-08T14:20:46.000Z" itemprop="datePublished">2020-11-08</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/GOF设计模式/">GOF设计模式</a>, <a class="article-tag-link" href="/tags/UML图/">UML图</a>, <a class="article-tag-link" href="/tags/设计模式/">设计模式</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/" class="leancloud_visitors" data-flag-title="什么是设计模式？详解设计模式概念及几大原则">0</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>​    hello，各位小伙伴大家好，又到了一篇一次的斗图环节，天气冷了，各位注意保暖。</p>
+<p>今天我们来讲讲设计模式，在我们学习Java的时候，时常听到单例模式，多例模式，还有使用Spring的时候，默认采用的单例模式，你所听到的“饱汉式”、“饿汉式”，都是对设计模式的形容。那么什么是设计模式呢？它又是什么概念呢。</p>
+<h3 id="设计模式的概念："><a href="#设计模式的概念：" class="headerlink" title="设计模式的概念："></a>设计模式的概念：</h3><p>​    设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的</p>
+<h4 id="个人理解："><a href="#个人理解：" class="headerlink" title="个人理解："></a>个人理解：</h4><p>​    设计模式并非是一种技术，而是在项目迭代的过程中，为了实现一些功能，设计了一些解决方案，将这些经验进行总结出来的一个模式体系，这个体系是在被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。</p>
+<p><strong>为什么要使用设计模式呢？</strong></p>
+<p>用设计模式是为了复用代码、让代码更容易被他人理解、保证代码可靠性。 在目前的软件设计潮流初中毫无疑问，设计模式于己经应用与每个公司的各个项目中，设计模式使代码编写过程真正实现工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们在开发过程中、各个业务中相似的且又不断重复发生的问题，以及提供了该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p>
+<h4 id="GOF设计模式"><a href="#GOF设计模式" class="headerlink" title="GOF设计模式"></a>GOF设计模式</h4><p>可能有的朋友听说过“GOF设计模式”，千万不能认为GOF是一个人，这些模式是他创写的，GOF是一个四个人的小团队，他们的名字全称叫做“Gang of Four”，GOF设计模式是1994年这个团队的4个人将在软件开发中使用频率较高的设计模式进行归纳，编写成Design Patterns: Elements of Reusable Object-Oriented Software【《设计模式：可复用面向对象软件的 基础》】一书，该书的出版也标志着设计模式正式成为面向对象(Object Oriented)软件工程的 一个重要研究分支。</p>
+<p>讲解GOF每一个设计模式之前，我们先来了解下设计模式的六大原则：</p>
+<h4 id="设计模式的六大原则："><a href="#设计模式的六大原则：" class="headerlink" title="设计模式的六大原则："></a>设计模式的六大原则：</h4><p>1.开闭原则（Open Close Principle）</p>
+<p>有开有闭原则，对扩展开放，但是对修改关闭。可以在程序需要拓展的时候使用，但是不能修改原有的代码来实现扩展。</p>
+<p>2.里氏代换原则（Liskov Substitution Principle）</p>
+<p>任何基类可以出现的地方，子类一定可以出现。只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现。</p>
+<p>可以理解为：子类可以扩展父类的功能，但不能改变原有父类的功能，例如：子类能够替换父类在代码中人已出现的地方，且代码替换以后，代码还能正常工作。</p>
+<p>3.依赖倒转原则（Dependence Inversion Principle）</p>
+<p>针对接口编程，依赖于抽象而不依赖于具体。简单解释就是面向接口编程，“抽象”就是接口或者抽象类，“具体”值得就是实现类；含义：上层模块不应该依赖下层模块，两者应依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象；传变量或者传参数，尽量使用抽象类，或者接口。</p>
+<p>例如：接口负责定义public的构造方法，抽象类负责公共构造部分的实现，实现类准确的实现业务逻辑</p>
+<p>4.接口隔离原则（Interface Segregation Principle）</p>
+<p>使用多个相互隔离的接口开发，比使用单个接口要好。目的是为降低类之间的耦合度。</p>
+<p>5.迪米特法则Demeter Principle）</p>
+<p>最少知道原则，尽量降低类与类之间的耦合，一个实体应当尽量少的与其他实体之间发生相互作用，使得系统功能模块相对独立，防止高耦合度。</p>
+<p>6.合成复用原则（Composite Reuse Principle）</p>
+<p>它要求在软件复用时，要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现。如果要使用继承关系，则必须严格遵循里氏替换原则。合成复用原则同里氏替换原则相辅相成的，两者都是开闭原则的具体实现规范。合成复用原则是通过将已有的对象纳入新对象中，作为新对象的成员对象来实现的，新对象可以调用已有对象的功能，从而达到复用。</p>
+<h4 id="程序设计目标：高内聚，低耦合"><a href="#程序设计目标：高内聚，低耦合" class="headerlink" title="程序设计目标：高内聚，低耦合"></a>程序设计目标：高内聚，低耦合</h4><p><strong>根据目的可以将设计模式被分为如下三种类型：</strong></p>
+<p>​    1.创建型模式：用于描述“怎样创建对象”</p>
+<p>​    2.结构型模式：用于描述如何将类或对象按某种布局组成更大的结构</p>
+<p>​    3.行为型模式：用于描述类或对象之间怎样相互协作共同完成单个对象都无法单独完成的任务，以及怎样分配职责。</p>
+<h4 id="根据作用范围可以将设计模式分为两类："><a href="#根据作用范围可以将设计模式分为两类：" class="headerlink" title="根据作用范围可以将设计模式分为两类："></a>根据作用范围可以将设计模式分为两类：</h4><p>1.类模式：用于处理类与子类之间的关系，这些关系通过继承来建立，是静态的，在编译时刻便确定下来了。</p>
+<p>2.对象模式：用于处理对象之间的关系，这些关系可以通过组合或聚合来实现，在运行时刻是可以变化的，更具动态性。</p>
+<table>
+<thead>
+<tr>
+<th>范围\目的</th>
+<th>创建型</th>
+<th>结构型</th>
+<th>行为型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类模式</td>
+<td>1.工厂模式（Factory Pattern）</td>
+<td>1.（类）适配器模式（Adapter Pattern）</td>
+<td>1.模板模式（Template Pattern）2.解释器模式（Interpreter Pattern）</td>
+</tr>
+<tr>
+<td>对象模式</td>
+<td>2.单例模式（Singleton Pattern）3.原型模式（Prototype Pattern）4.抽象工厂模式（Abstract Factory Pattern）5.建造者模式（Builder Pattern）</td>
+<td>1.（对象）适配器模式（Adapter Pattern）2.代理模式（Proxy Pattern）3.桥接模式（Bridge Pattern）4.装饰器模式（Decorator Pattern）5.外观模式（Facade Pattern）6.享元模式（Flyweight Pattern）7.组合模式（Composite Pattern）</td>
+<td>3.策略模式（Strategy Pattern）4.命令模式（Command Pattern）5.责任链模式（Chain of Responsibility Pattern）6.状态模式（State Pattern）7.观察者模式（Observer Pattern）8.中介者模式（Mediator Pattern）9.迭代器模式（Iterator Pattern）10.访问者模式（Visitor Pattern11.备忘录模式（Memento Pattern）</td>
+</tr>
+</tbody>
+</table>
+<p>认识UML类图能更好的的学习设计模式，学会UML类图也可以更快速的看懂类与类之间的关系</p>
+<h3 id="什么是UML？"><a href="#什么是UML？" class="headerlink" title="什么是UML？"></a>什么是UML？</h3><p>1) UML，全称Unified modeling language UML (统一建模语言)， 是一种用于软件系统分析和设计的语言工具，它用</p>
+<p>于帮助软件开发人员进行思考和记录思路的结果。</p>
+<p>2) UML 类似流程图，本身有一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他</p>
+<p>们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</p>
+<p>你可能见过如下几种</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\8c8c670626cd437a9fa6a01361e07372\image.png" alt="img"></p>
+<p>用例图</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\3c848d2eff684bf99380549ecbfbbac2\3-1q113133f4161.gif" alt="img"></p>
+<p>类图</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\e356f0707a3a4cda82b5af786bc4fa3f\u=1240639428,987080869&amp;fm=26&amp;gp=0.jpg.png" alt="img"></p>
+<p>时序图</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\bd07d7c063a841699ccc9c958bd79913\timg.gif" alt="img"></p>
+<h4 id="UML图可以简单分为三类"><a href="#UML图可以简单分为三类" class="headerlink" title="UML图可以简单分为三类:"></a>UML图可以简单分为三类:</h4><p>1) 用例图(use case)</p>
+<p>2) 静态结构图:类图、对象图、包图、组件图、部署图</p>
+<p>3) 动态行为图:交互图(时序图与协作图)、状态图、活动图</p>
+<p>我们主要学习类图</p>
+<p>类图(Class diagram)由许多（静态）说明性的模型元素（例如类、包和它们之间的关系，这些元素和它们的内容互相连接）组成。类图可以组织在（并且属于）包中，仅显示特定包中的相关内容。</p>
+<p>类图(Class diagram)是最常用的UML图，显示出类、接口以及它们之间的静态结构和关系；它用于描述系统的结构化设计。</p>
+<p>类图(Class diagram)最基本的元素是类或者接口。</p>
+<p>也就是下图</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\3c848d2eff684bf99380549ecbfbbac2\3-1q113133f4161.gif" alt="img"></p>
+<h4 id="UML类图的主要模型元素："><a href="#UML类图的主要模型元素：" class="headerlink" title="UML类图的主要模型元素："></a>UML类图的主要模型元素：</h4><p>1.类（Class）</p>
+<p>2.接口（Interface）</p>
+<p>3.类之间的关系。</p>
+<h5 id="一、类"><a href="#一、类" class="headerlink" title="一、类"></a>一、类</h5><p>类（Class）是指具有相同属性、方法和关系的对象的抽象，它封装了数据和行为，是面向对象程序设计（OOP）的基础，具有封装性、继承性和多态性等三大特性。在 UML 中，类使用包含类名、属性和操作且带有分隔线的矩形来表示。</p>
+<p>(1) 类名（Name）是一个字符串，例如，Student。</p>
+<p>(2) 属性（Attribute）是指类的特性，即类的成员变量。</p>
+<p>UML 按以下格式表示：</p>
+<p>[可见性]属性名:类型[=默认值] </p>
+<p>例如：-name:String</p>
+<p>注意：“可见性”表示该属性对类外的元素是否可见，包括公有（Public）、私有（Private）、受保护（Protected）和朋友（Friendly，Java类图中不适用此类型，其他语言可用）4 种，在类图中分别用符号+、-、#、~表示</p>
+<p>(3) 操作（Operations）是类的任意一个实例对象都可以使用的行为，是类的成员方法。UML 按以下格式表示：</p>
+<p>[可见性]名称(参数列表)[:返回类型] </p>
+<p>例如：+display():void。</p>
+<p>下图所示是学生类的 UML 表示。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\e404b23229c546d280935bfce21028da\image.png" alt="img"></p>
+<h5 id="二、-接口"><a href="#二、-接口" class="headerlink" title="二、 接口"></a>二、 接口</h5><p>接口（Interface）是一种特殊的类，它具有类的结构但不可被实例化，只可以被实现类实现。它包含抽象操作（抽象方法），但不包含属性（成员变量）。它描述了类或组件对外可见的动作。在 UML 中，接口使用一个带有横线小圆圈来进行表示。如下图，类名上带有横线小圈的就是接口。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\2fb762e47b2a43e2944d3a88a61d88de\image.png" alt="img"></p>
+<h5 id="三、类之间的关系"><a href="#三、类之间的关系" class="headerlink" title="三、类之间的关系"></a>三、类之间的关系</h5><p>类之间的关系有6种关系：依赖关系、关联关系、聚合关系、组合关系、泛化关系、实现关系</p>
+<p>每个关系之间的形状配置如下</p>
+<table>
+<thead>
+<tr>
+<th>关系</th>
+<th>形状</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依赖(Dependency)</td>
+<td>带箭头的虚线，指向被使用者</td>
+</tr>
+<tr>
+<td>关联（Association)</td>
+<td>带普通箭头的实心线，指向被拥有者，双向的关联可以有两个箭头或者没有箭头，单向的关联有一个箭头，箭头指向被关联者。</td>
+</tr>
+<tr>
+<td>聚合（Aggregation）</td>
+<td>带空心菱形的实心线，菱形指向整体</td>
+</tr>
+<tr>
+<td>组合(Composition)</td>
+<td>带实心菱形的实线，菱形指向整体</td>
+</tr>
+<tr>
+<td>泛化（Generalization）</td>
+<td>带三角箭头的实线，箭头指向父类</td>
+</tr>
+<tr>
+<td>实现（Realization）</td>
+<td>带三角箭头的虚线，箭头指向接口</td>
+</tr>
+</tbody>
+</table>
+<p><strong>1.依赖关系</strong></p>
+<p>依赖（Dependency）关系是一种使用关系，它是对象之间耦合度最弱的一种关联方式，例如在Java中某个类的方法通过局部变量、方法的参数或者对静态方法的调用来访问另一个类（被依赖类）中的某些方法来完成一些业务开发。</p>
+<p>依赖关系使用带箭头的虚线来表示，箭头从使用类指向被依赖的类（被使用者），如下图，所示是人与汽车的的关系图，人通过汽车的run方法来完成驾驶。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\2b0ccb3736b84a8b9cb627d0789dc4bf\image.png" alt="img"></p>
+<p><strong>2.关联关系</strong></p>
+<p>关联（Association）关系是对象之间的一种引用关系，用于表示一类对象与另一类对象之间的联系；关联可以是双向的，也可以是单向的。在 UML 类图中，双向的关联可以用带两个箭头或者没有箭头的实线来表示，单向的关联用带一个箭头的实线来表示，箭头从使用类指向被关联的类。也可以在关联线的两端标注角色名，代表两种不同的角色。</p>
+<p>（1）单向关联，人拥有车的属性对象。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\7447d05ee3844ea3b6458ee1f14319f1\image.png" alt="img"></p>
+<p>（2）双向关联，人拥有汽车，汽车有归属人信息属性</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\0cceff587876473782eef8b496993840\image.png" alt="img"></p>
+<p>（3）自关联，水由无数个水分子组成，但是水分子依然是水</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\2ef4c0d36a9a4078a0a3213e675c24a2\image.png" alt="img"></p>
+<ol start="3">
+<li><strong>聚合关系</strong></li>
+</ol>
+<p>聚合（Aggregation）关系是关联关系的一种，是强关联关系，是整体和部分之间的关系，是 has-a 的关系；如果整体和部分单独拿出来，也能变为独立的模块，但是整体需要依赖部分才能保证整体，在 UML 类图中，聚合关系可以用带空心菱形的实线来表示，菱形指向整体。</p>
+<p>例如：公司和员工每一个都是一个独立的关系，如果公司没有了，员工依然还是员工，但是员工没了，这个公司也就不复存在了。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\c982ea6970aa484fa1bd8443b4024277\image.png" alt="img"></p>
+<p><strong>4..组合关系</strong></p>
+<p>组合（Composition）关系也是关联关系的一种，也表示类之间的整体与部分的关系，但它是一种更强烈的聚合关系，是 cxmtains-a 关系。</p>
+<p>在组合关系中，整体对象可以控制部分对象的生命周期，一旦整体对象不存在，部分对象也将不存在，部分对象不能脱离整体对象而存在。</p>
+<p>在 UML 类图中，组合关系用带实心菱形的实线来表示，菱形指向整体:</p>
+<p>例如下图，脚是人的身体的重要组成部分，如果身体不存在了，那么脚也就不存在了，且部分不能脱离整体。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\2e0c4b2c7fea4aca8389c7589f78df83\image.png" alt="img"></p>
+<p><strong>5.泛化关系</strong></p>
+<p>泛化（Generalization）关系是对象之间耦合度最大的一种关系，是父类与子类之间的关系，是一种继承关系，是 is-a 的关系。</p>
+<p>用Java的理念可以认为：一个父类只要被子类继承，那这个父类与子类的关系就叫“泛化关系”。</p>
+<p>在 UML 类图中，泛化关系用带空心三角箭头的实线来表示，箭头从子类指向父类。在代码实现时，使用面向对象的继承机制来实现泛化关系</p>
+<p>例如下图：人作为一个父类，可能有多个子类，作者有人的属性且有自己特殊的写作技能，读者拥有评论书籍的技能，这样就构成了泛化关系（人类与作者、人类与读者都是泛化关系）。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\705a397327d44902ab48610b9c2754f4\image.png" alt="img"></p>
+<p><strong>6.实现关系</strong></p>
+<p>实现（Realization）关系是接口与实现类之间的关系。在这种关系中，实现类实现了接口中的抽象方法，类中的操作实现了接口中所声明的所有的抽象操作。</p>
+<p>在 UML 类图中，实现关系使用带空心三角箭头的虚线来表示，箭头从实现类指向接口。</p>
+<p>例如下图：车是一个接口是一个规范，满足能跑起来就可以，汽车和自行车都实现了“跑”这个方法，而汽车现在可以实现自动驾驶，就是在按照接口的规范实现了“run”方法，那么接口与实现类的关系就是实现关系。</p>
+<p><img src="D:\YouDaoNote\yzx9607@163.com\84e1c66d932c46a690d9624fee7a9e94\image.png" alt="img"></p>
+
+      
+    </div>
+    <div class="article-footer">
+      
+    
+        <div class="panel panel-default panel-badger">
+            <div class="panel-body">
+                <figure class="media">
+                    <div class="media-left">
+                        <a href="/about" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatarnew.jpg" class="img-rounded w-full" alt="">
+        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading"><a href="/about" target="_blank"><span class="text-dark">Java小白_Mr.Yang</span><small class="ml-1x">Java 开发工程师</small></a></h3>
+                        <div>
+                            个人简介。
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        </div>
+        
+    </div>
+  </article>
+  
+    
+    <section id="comments">
+        
+                                                            
+       <div id="SOHUCS"></div>
+
+                                                                
+    </section>
+    
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/06/19/何为前后端分离？/" title="何为前后端分离？"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>打赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>觉得不错，给博主打赏一下吧</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/alipayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开支付宝,扫码打赏一杯咖啡钱!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/wechatpayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开微信,扫码打赏一杯咖啡钱!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        <div class="copyright">
+            
+        </div>
+        <div class="BbeiAn-info" "="">
+		<a href="http://ha.beian.miit.gov.cn/ ">豫ICP备-19021650号</a>
+	</div>
+</footer>
+  <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+    <link href="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script>
+        //利用 FancyBox 实现点击图片放大
+        $(document).ready(function() {
+            $('article img').not('[hidden]').not('.panel-body img').each(function () {
+                var $image = $(this);
+                var imageCaption = $image.attr('alt');
+                var $imageWrapLink = $image.parent('a');
+                if ($imageWrapLink.length < 1) {
+                var src = this.getAttribute('src');
+                var idx = src.lastIndexOf('?');
+                if (idx != -1) {
+                    src = src.substring(0, idx);
+                }
+                $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+                }
+                $imageWrapLink.attr('data-fancybox', 'images');
+                if (imageCaption) {
+                $imageWrapLink.attr('data-caption', imageCaption);
+                }
+            });
+            $().fancybox({
+                selector: '[data-fancybox="images"]',
+                hash: false,
+                loop: false,
+            }); 
+        });
+    </script>
+    
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+
+        
+            <!-- custom analytics part create by xiamo -->
+            <script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+            <script>
+                AV.init({
+                    appId: '7zI4DxIGDY35x3d1h6XmX1ys-gzGzoHsz',
+                    appKey: 'Lg3fMUTGskzVFEM77aiKqVUk'
+                });
+
+                function showTime(Counter) {
+                    var query = new AV.Query(Counter);
+                    var visitors = $('.leancloud_visitors');
+                    query.greaterThanOrEqualTo("time", 0);
+                    query.find({
+                        success: function(results) {
+                            if (results.length == 0) {
+                                return;
+                            }
+                            var data = results;
+                            visitors.each(function() {
+                                var url = $(this).attr('id').trim();
+                                for (var i = 0; i < data.length; i++) {
+                                    var object = data[i];
+                                    var content = object.get('time');
+                                    var _url = object.get('url')
+                                    if (url == _url) {
+                                        $(this).text(content);
+                                    }
+                                }
+                            })
+
+                        },
+                        error: function(object, error) {
+                            console.log("Error: " + error.code + " " + error.message);
+                        }
+                    });
+                }
+
+                function addCount(Counter) {
+                    var Counter = AV.Object.extend("Counter");
+                    url = $(".leancloud_visitors").attr('id').trim();
+                    title = $(".leancloud_visitors").attr('data-flag-title').trim();
+                    var query = new AV.Query(Counter);
+                    query.equalTo("url", url);
+                    query.find({
+                        success: function(results) {
+                            if (results.length > 0) {
+                                var counter = results[0];
+                                counter.fetchWhenSave(true);
+                                counter.increment("time");
+                                counter.save(null, {
+                                    success: function(counter) {
+                                        var content = counter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(counter, error) {
+                                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                                    }
+                                });
+                            } else {
+                                var newcounter = new Counter();
+                                newcounter.set("title", title);
+                                newcounter.set("url", url);
+                                newcounter.set("time", 1);
+                                newcounter.save(null, {
+                                    success: function(newcounter) {
+                                        console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                        var content = newcounter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(newcounter, error) {
+                                        console.log('Failed to create');
+                                    }
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            console.log('Error:' + error.code + " " + error.message);
+                        }
+                    });
+                }
+                $(function() {
+                    var Counter = AV.Object.extend("Counter");
+                    if ($('.leancloud_visitors').length == 1) {
+                        addCount(Counter);
+                    } else {
+                        showTime(Counter);
+                    }
+                });
+            </script>
+            
+    
+    
+        
+                                                    
+	<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+	<script type="text/javascript">
+	window.changyan.api.config({
+	appid: 'cyui87E8f',
+	conf: 'prod_475c88f5dcbd1e8f3c566a93f6c2f8b4'
+	});
+</script>
+
+                                                        
+    
+    
+
+
+
+</body>
+</html>
