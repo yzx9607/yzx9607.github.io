@@ -17,30 +17,25 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>使用eclipse对maven项目打包时出现No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法 | Java小白的个人博客</title>
-  <meta name="description" content="使用eclipse对maven项目打包时出现 No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法maven作为流行的Jar包管理工具，在各个项目中得到了充分的使用，本次为本人遇到maven工程打包时，提示打包失败的问题，发现为JRE的问题，我将问题">
-<meta name="keywords" content="eclipse,maven">
+  <title>常用设计模式系列（二）—工厂方法模式 | Java小白的个人博客</title>
+  <meta name="description" content="一、前言hello各位小伙伴好，天气贼冷，多冻手，但是还是不能降低我编写设计模式讲解的热情。设计模式的魅力就像那冬天里的一把火，怎么也浇不灭；  上期讲解了简单工厂模式的应用场景及优缺点分析，今天开始我们的设计模式第二弹——工厂方法模式，其实工厂方法模式类似于简单工厂模式的一个升级；有印象的朋友可能还记得，上次我们讲到简单工厂模式可以生产出某一种类型的产品，我形象的使用了“鞋厂”来进行比喻，“鞋厂">
+<meta name="keywords" content="设计模式,UML类图,工厂方法模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用eclipse对maven项目打包时出现No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法">
-<meta property="og:url" content="http://yzx9607.coding.me/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/index.html">
+<meta property="og:title" content="常用设计模式系列（二）—工厂方法模式">
+<meta property="og:url" content="http://yzx9607.coding.me/2020/12/07/常用设计模式系列（二）—工厂方法模式/index.html">
 <meta property="og:site_name" content="Java小白的个人博客">
-<meta property="og:description" content="使用eclipse对maven项目打包时出现 No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法maven作为流行的Jar包管理工具，在各个项目中得到了充分的使用，本次为本人遇到maven工程打包时，提示打包失败的问题，发现为JRE的问题，我将问题">
+<meta property="og:description" content="一、前言hello各位小伙伴好，天气贼冷，多冻手，但是还是不能降低我编写设计模式讲解的热情。设计模式的魅力就像那冬天里的一把火，怎么也浇不灭；  上期讲解了简单工厂模式的应用场景及优缺点分析，今天开始我们的设计模式第二弹——工厂方法模式，其实工厂方法模式类似于简单工厂模式的一个升级；有印象的朋友可能还记得，上次我们讲到简单工厂模式可以生产出某一种类型的产品，我形象的使用了“鞋厂”来进行比喻，“鞋厂">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-1.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-2.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-3.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-4.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-5.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-6.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-7.png">
-<meta property="og:image" content="http://yzx9607.coding.me/images/20181023/20181023-8.jpg">
-<meta property="og:updated_time" content="2018-10-23T06:27:14.941Z">
+<meta property="og:image" content="http://yzx9607.coding.me/images/factorymethod/1.png">
+<meta property="og:image" content="http://yzx9607.coding.me/images/factorymethod/2.png">
+<meta property="og:image" content="http://yzx9607.coding.me/images/factorymethod/3.png">
+<meta property="og:updated_time" content="2021-10-09T01:55:17.808Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用eclipse对maven项目打包时出现No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法">
-<meta name="twitter:description" content="使用eclipse对maven项目打包时出现 No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法maven作为流行的Jar包管理工具，在各个项目中得到了充分的使用，本次为本人遇到maven工程打包时，提示打包失败的问题，发现为JRE的问题，我将问题">
-<meta name="twitter:image" content="http://yzx9607.coding.me/images/20181023/20181023-1.png">
+<meta name="twitter:title" content="常用设计模式系列（二）—工厂方法模式">
+<meta name="twitter:description" content="一、前言hello各位小伙伴好，天气贼冷，多冻手，但是还是不能降低我编写设计模式讲解的热情。设计模式的魅力就像那冬天里的一把火，怎么也浇不灭；  上期讲解了简单工厂模式的应用场景及优缺点分析，今天开始我们的设计模式第二弹——工厂方法模式，其实工厂方法模式类似于简单工厂模式的一个升级；有印象的朋友可能还记得，上次我们讲到简单工厂模式可以生产出某一种类型的产品，我形象的使用了“鞋厂”来进行比喻，“鞋厂">
+<meta name="twitter:image" content="http://yzx9607.coding.me/images/factorymethod/1.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://yzx9607.coding.me/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/index.html">
+  <link rel="canonical" href="http://yzx9607.coding.me/2020/12/07/常用设计模式系列（二）—工厂方法模式/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Java小白的个人博客" type="application/atom+xml">
   
@@ -327,14 +322,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-常用设计模式系列（二）—工厂方法模式" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      使用eclipse对maven项目打包时出现No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法
+      常用设计模式系列（二）—工厂方法模式
     </h1>
   
 
@@ -342,15 +337,15 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/" class="article-date">
-	  <time datetime="2018-10-23T06:24:54.000Z" itemprop="datePublished">2018-10-23</time>
+	<a href="/2020/12/07/常用设计模式系列（二）—工厂方法模式/" class="article-date">
+	  <time datetime="2020-12-06T16:03:51.000Z" itemprop="datePublished">2020-12-07</time>
 	</a>
 </span>
         
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/eclipse/">eclipse</a>, <a class="article-tag-link" href="/tags/maven/">maven</a>
+	<a class="article-tag-link" href="/tags/UML类图/">UML类图</a>, <a class="article-tag-link" href="/tags/工厂方法模式/">工厂方法模式</a>, <a class="article-tag-link" href="/tags/设计模式/">设计模式</a>
   </span>
 
 
@@ -358,48 +353,45 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/" class="leancloud_visitors" data-flag-title="使用eclipse对maven项目打包时出现No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法">0</span>
+    	<span id="/2020/12/07/常用设计模式系列（二）—工厂方法模式/" class="leancloud_visitors" data-flag-title="常用设计模式系列（二）—工厂方法模式">0</span>
     </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/10/23/使用eclipse对maven项目打包时出现No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法/#comments" class="article-comment-link">Comments</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/12/07/常用设计模式系列（二）—工厂方法模式/#comments" class="article-comment-link">Comments</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="使用eclipse对maven项目打包时出现-No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法"><a href="#使用eclipse对maven项目打包时出现-No-compiler-is-provided-in-this-environment-Perhaps-you-are-running-on-a-JRE-rather-than-a-JDK-的解决方法" class="headerlink" title="使用eclipse对maven项目打包时出现 No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法"></a>使用eclipse对maven项目打包时出现 No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK 的解决方法</h2><p>maven作为流行的Jar包管理工具，在各个项目中得到了充分的使用，本次为本人遇到maven工程打包时，提示打包失败的问题，发现为JRE的问题，我将问题解决步骤分享出来，供大家参考</p>
-<p>1.出现糟心的问题，让我心里感受到此生不会再爱代码了的问题截图如下</p>
-<p><img src="/images/20181023/20181023-1.png" alt=""></p>
-<p>2.此时需要将eclipse的JRE配置进行替换，选择window—&gt;Prefences</p>
-<p><img src="/images/20181023/20181023-2.png" alt=""></p>
-<p>3.在左侧找到Java,选择Installed JREs，选择Add</p>
-<p><img src="/images/20181023/20181023-3.png" alt=""></p>
-<p>4.在Eclipse或，有三个选择：</p>
-<ul>
-<li><p>Execution Environment Description</p>
-</li>
-<li><p>Standard 1.1.x VM</p>
-</li>
-<li><p>Standard VM</p>
-</li>
-</ul>
-<p>那么我们应该选择哪个JVM呢？</p>
-<p>首先应该弄清楚它们的含义。</p>
-<p>1）Execution Environment Description</p>
-<p>Execution Environment Description是指执行环境描述，它是说通过一个执行环境描述文件来定义项目所需的JRE设置的所有细节。主要是可以自定义安装的很多方面。开发者一般用不到这个选项。</p>
-<p>2）Standard 1.1.x VM</p>
-<p>这个JVM设置是用于支持遗留的JVM 1.1.x版本的编译，通常我们也用不到。</p>
-<p>3）Standard VM</p>
-<p>标准的虚拟机设置，这个就是开发者常用的方式，我们因此也要选择这个方式</p>
-<p><img src="/images/20181023/20181023-4.png" alt=""></p>
-<p>5.此时选择自己安装的JDK所携带的JRE，这里我选择的是我的JAVA_HOME，它会自动检索出所有的JRE的文件，来供你确认，JRE Name就是你自定义的名字，方便区分</p>
-<p><img src="/images/20181023/20181023-5.png" alt=""></p>
-<p>6.确定完成之后，将刚才自己添加的JRE勾选为默认的JRE</p>
-<p><img src="/images/20181023/20181023-6.png" alt=""></p>
-<p>7.此时我们需要将maven配置重新生效，项目上右键—&gt;maven—&gt;Update Project即可</p>
-<p><img src="/images/20181023/20181023-7.png" alt=""></p>
-<p>8.这个时候，再次去打包之前的问题就解决了，是不是又感觉到自己又死而复生了（哈哈，我们还是要学会忍受挫折的,淡定、淡定）</p>
-<p><img src="/images/20181023/20181023-8.jpg" alt=""></p>
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>hello各位小伙伴好，天气贼冷，多冻手，但是还是不能降低我编写设计模式讲解的热情。设计模式的魅力就像那冬天里的一把火，怎么也浇不灭；</p>
+<p><img src="/images/factorymethod/1.png" alt=""></p>
+<p>上期讲解了简单工厂模式的应用场景及优缺点分析，今天开始我们的设计模式第二弹——工厂方法模式，其实工厂方法模式类似于简单工厂模式的一个升级；有印象的朋友可能还记得，上次我们讲到简单工厂模式可以生产出某一种类型的产品，我形象的使用了“鞋厂”来进行比喻，“鞋厂”目前只能生产出各种各样的鞋子，如果我需要的是衣服，是水杯，是其它类型的产品，那此时工厂类就不能满足新的具体产品类的生产了。具体如何解决，我们来了解下工厂方法模式。</p>
+<h2 id="二、什么是工厂方法模式"><a href="#二、什么是工厂方法模式" class="headerlink" title="二、什么是工厂方法模式"></a>二、什么是工厂方法模式</h2><h3 id="概念讲述"><a href="#概念讲述" class="headerlink" title="概念讲述"></a>概念讲述</h3><p>可以理解为简单工程模式的升级，简单工厂模式中工厂负责生产所有产品相比，工厂方法模式将生成具体产品的任务分发给具体的产品工厂，简可以理解为，如果在简单工厂模式中，扩增具体产品信息，需要对原有工厂进行改造，当需求的产品类别增加到一定程度时，工厂较负责的产品线也相对复杂，当出现问题时，所有的产品的生产将会中断；</p>
+<h3 id="场景解释："><a href="#场景解释：" class="headerlink" title="场景解释："></a>场景解释：</h3><p>由于市场需求较大，“A老板”拿出自己全部身家，开办了上期我们所讲的“鞋厂”，随着客户越来越多，一些店家说，你们工厂生产鞋子，生产的皮鞋的原材料使用了皮质，可不可以生产皮包或者皮质钱包；“A老板”一想，这也是个赚钱的门路，随着客户的需求，“鞋厂”变成了生产多种商品的工厂。但是客户发现由于技术不成熟，发现生产的除了鞋子以外的产品，都没有鞋子的质量、款式好看，此时一个整合商“老板B”出现，联系了钱包厂购买钱包，皮包厂购买皮包，抢了“老板A”的生意，此时“老板A”找到“老板B”问道：“你是来砸场子的吧？”，“B老板”说：“兄弟，你这边鞋子的质量与款式我没得说，那是很好很好的，但是别的产品的确质量参差不齐，客户们都怨声道载，何不专心做鞋子呢，其它的产品交给专业的产品线来做，专业的人干专业的事情，岂不美哉，合作共赢。”</p>
+<p>总结：</p>
+<p>文中将一个生产多种类别（具体产品）的工厂，容易造成工厂压力较大，将具体的产品生产工作改为每个工厂去做，此时客户只需要要产品，中间的产品整合商对接多个工厂的方式使用的思维就是工厂方法模式。</p>
+<h3 id="用例图"><a href="#用例图" class="headerlink" title="用例图"></a>用例图</h3><p><img src="/images/factorymethod/2.png" alt=""></p>
+<h3 id="工厂方法模式构成："><a href="#工厂方法模式构成：" class="headerlink" title="工厂方法模式构成："></a>工厂方法模式构成：</h3><p>1.抽象工厂（Abstract Factory）：提供了创建产品的接口，调用者通过它访问具体工厂的工厂方法 newProduct() 来创建产品。</p>
+<p>2.具体工厂（ConcreteFactory）：主要是实现抽象工厂中的抽象方法，完成具体产品的创建。    </p>
+<p>3.抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能。</p>
+<p>4.具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它同具体工厂之间一一对应。</p>
+<p>细心的朋友可能发现，相对简单工厂模式，将简单工厂模式中的工厂角色拆分为了抽象工厂和具体工厂，具体的产品的生产交给具体工厂来做。</p>
+<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="/images/factorymethod/3.png" alt=""></p>
+<h2 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h2><h4 id="1-创建抽象工厂类"><a href="#1-创建抽象工厂类" class="headerlink" title="1.创建抽象工厂类"></a>1.创建抽象工厂类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.factorymethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AbstractFactory</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 抽象工厂</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/7 21:53</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建产品抽象方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProduct <span class="title">createProduct</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-创建抽象产品类"><a href="#2-创建抽象产品类" class="headerlink" title="2.创建抽象产品类"></a>2.创建抽象产品类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.factorymethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AbstractProduct</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 抽象产品</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/7 21:57</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractProduct</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 描述抽象方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-创建具体产品工厂A"><a href="#3-创建具体产品工厂A" class="headerlink" title="3.创建具体产品工厂A"></a>3.创建具体产品工厂A</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.factorymethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcreteFactoryA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 具体产品A工厂</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/7 21:59</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactoryA</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProduct <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-创建具体产品工厂B"><a href="#4-创建具体产品工厂B" class="headerlink" title="4.创建具体产品工厂B"></a>4.创建具体产品工厂B</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.factorymethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcreteFactoryB</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 产品B工厂</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/7 22:02</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactoryB</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProduct <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-创建具体产品A"><a href="#5-创建具体产品A" class="headerlink" title="5.创建具体产品A"></a>5.创建具体产品A</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.factorymethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ProductA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 产品A</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/7 22:01</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">implements</span> <span class="title">AbstractProduct</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是产品A"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-创建具体产品B"><a href="#6-创建具体产品B" class="headerlink" title="6.创建具体产品B"></a>6.创建具体产品B</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.factorymethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ProductB</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 产品B</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/7 22:02</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">implements</span> <span class="title">AbstractProduct</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是产品B"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-创建测试客户端"><a href="#7-创建测试客户端" class="headerlink" title="7.创建测试客户端"></a>7.创建测试客户端</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.factorymethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Client</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/7 22:04</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//产品A工厂</span></span><br><span class="line">        AbstractFactory factoryA = <span class="keyword">new</span> ConcreteFactoryA();</span><br><span class="line">        AbstractProduct product = factoryA.createProduct();</span><br><span class="line">        product.hello();</span><br><span class="line">        <span class="comment">//产品B工厂</span></span><br><span class="line">        AbstractFactory factoryB = <span class="keyword">new</span> ConcreteFactoryB();</span><br><span class="line">        product = factoryB.createProduct();</span><br><span class="line">        product.hello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-运行结果如下"><a href="#8-运行结果如下" class="headerlink" title="8.运行结果如下"></a>8.运行结果如下</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是产品A</span><br><span class="line">我是产品B</span><br></pre></td></tr></table></figure>
+<h2 id="四、工厂方法模式优缺点及适用场景"><a href="#四、工厂方法模式优缺点及适用场景" class="headerlink" title="四、工厂方法模式优缺点及适用场景"></a>四、工厂方法模式优缺点及适用场景</h2><h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>1.在工厂方法模式中，工厂方法用来创建客户所需要的产品，同时还向客户隐藏了哪种具体产品被实例化的细节，用户只需要关心所需产品对应工厂，无须关心创建细节，甚至无须关心具体产品的类名。</p>
+<p>2.基于工厂角色和产品角色的多态性设计是工厂方法模式的关键；它能够让工厂自主确定创建何种产品对象，而如何创建对象的细节封装在具体工厂内部。</p>
+<p>3.在系统中加入新产品时无需修改抽象工厂和抽象产品提供的接口，直接扩展具体工厂即可，扩展性较好。</p>
+<p>缺点：</p>
+<p>1.再添加新产品，则需要编写新的具体产品类，还要提供与之相对应的具体工厂类，当产品逐渐增多会造成系统的复杂度。</p>
+<p>2.考虑到系统的可扩展性，需要引入抽象层，在客户端代码均使用抽象层进行定义，增加了系统的抽象性和理解难度。</p>
+<h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>1.客户端不需要知道他所需要的对象的类时（只需要知道抽象产品对象类即可）。</p>
+<p>2.在程序中需要子类覆盖父类对象时，可以使用。</p>
 
       
     </div>
@@ -444,13 +436,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2018/10/23/两年前写的Java基础总结书/" title="两年前写的Java基础总结书"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2018/10/19/如何读取服务器中文本文件并转为文字/" title="如何读取服务器中文本文件并转为文字"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2020/12/06/设计模式系列（一）—简单工厂模式/" title="设计模式系列（一）—简单工厂模式"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
