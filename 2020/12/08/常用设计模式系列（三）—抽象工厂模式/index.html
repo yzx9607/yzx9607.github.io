@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="referrer" content="never">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>常用设计模式系列（三）—抽象工厂模式 | Java小白的个人博客</title>
+  <meta name="description" content="一、前言各位大佬好，又是一个冷嗖嗖的日子，这个城市的天气最近一直都不太好，说下雪吧也不下，天气也不晴，让人甚是难受。前段时间周围的城市都下雪了，盼了好久的雪也没盼到，只等来了冷风作祟。基于我的心情，我来吟诗一首：  ​    《盼雪》 昨日已别大雪， 吾昼夜盼雪至。 虽见细雨飘散， 气寒云彩密集。 盼雪之心已惫， 不见漫天飘零。 —— 作者：IT小白闯天下   ​    开始我们今天的模式讲解，前">
+<meta name="keywords" content="设计模式,GOF设计模式,UML类图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用设计模式系列（三）—抽象工厂模式">
+<meta property="og:url" content="http://yzx9607.coding.me/2020/12/08/常用设计模式系列（三）—抽象工厂模式/index.html">
+<meta property="og:site_name" content="Java小白的个人博客">
+<meta property="og:description" content="一、前言各位大佬好，又是一个冷嗖嗖的日子，这个城市的天气最近一直都不太好，说下雪吧也不下，天气也不晴，让人甚是难受。前段时间周围的城市都下雪了，盼了好久的雪也没盼到，只等来了冷风作祟。基于我的心情，我来吟诗一首：  ​    《盼雪》 昨日已别大雪， 吾昼夜盼雪至。 虽见细雨飘散， 气寒云彩密集。 盼雪之心已惫， 不见漫天飘零。 —— 作者：IT小白闯天下   ​    开始我们今天的模式讲解，前">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yzx9607.coding.me/images/abstractfactory/1.png">
+<meta property="og:image" content="http://yzx9607.coding.me/images/abstractfactory/2.png">
+<meta property="og:image" content="http://yzx9607.coding.me/images/abstractfactory/3.png">
+<meta property="og:image" content="http://yzx9607.coding.me/images/abstractfactory/4.png">
+<meta property="og:updated_time" content="2021-10-09T02:25:31.531Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用设计模式系列（三）—抽象工厂模式">
+<meta name="twitter:description" content="一、前言各位大佬好，又是一个冷嗖嗖的日子，这个城市的天气最近一直都不太好，说下雪吧也不下，天气也不晴，让人甚是难受。前段时间周围的城市都下雪了，盼了好久的雪也没盼到，只等来了冷风作祟。基于我的心情，我来吟诗一首：  ​    《盼雪》 昨日已别大雪， 吾昼夜盼雪至。 虽见细雨飘散， 气寒云彩密集。 盼雪之心已惫， 不见漫天飘零。 —— 作者：IT小白闯天下   ​    开始我们今天的模式讲解，前">
+<meta name="twitter:image" content="http://yzx9607.coding.me/images/abstractfactory/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yzx9607.coding.me/2020/12/08/常用设计模式系列（三）—抽象工厂模式/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Java小白的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+        <div class="navbar-header">
+            
+                
+                    <div class="profile-block text-center">
+                        <a id="avatar" href="/about" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatarnew.jpg" width="200" height="200">
+        </a>
+                        <h2 id="name" class="hidden-xs hidden-sm">
+                            Java小白_Mr.Yang
+                        </h2>
+                        <h3 id="title" class="hidden-xs hidden-sm hidden-md">
+                            Java 开发工程师
+                        </h3>
+                        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ZhengZhou, China</small>
+                    </div>
+                    
+                        <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+                            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        </div>
+        <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+            <ul class="nav navbar-nav main-nav ">
+                
+                    
+                        <li class="menu-item menu-item-home">
+                            <a href="/.">
+                                
+                                    <i class="icon icon-home-fill"></i>
+                                    
+                                        <span class="menu-title">Home</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-archives">
+                            <a href="/archives">
+                                
+                                    <i class="icon icon-archives-fill"></i>
+                                    
+                                        <span class="menu-title">Archives</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-tags">
+                            <a href="/tags">
+                                
+                                    <i class="icon icon-tags"></i>
+                                    
+                                        <span class="menu-title">Tags</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-repository">
+                            <a href="https://gitee.com/yzx9607">
+                                
+                                    <i class="icon icon-project"></i>
+                                    
+                                        <span class="menu-title">Repository</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-links">
+                            <a href="/links">
+                                
+                                    <i class="icon icon-friendship"></i>
+                                    
+                                        <span class="menu-title">Links</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-about">
+                            <a href="/about">
+                                
+                                    <i class="icon icon-cup-fill"></i>
+                                    
+                                        <span class="menu-title">About</span>
+                            </a>
+                        </li>
+                        
+            </ul>
+            
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        </nav>
+    </div>
+</header>
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActiveMQ/">ActiveMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email/">Email</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GOF设计模式/">GOF设计模式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hystrix/">Hystrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java基础/">Java基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVVM/">MVVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSql/">NoSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageHelper/">PageHelper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML类图/">UML类图</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/">dubbo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/">kafka</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/properties/">properties</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpc/">rpc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shiro/">shiro</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yml/">yml</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前后端分离/">前后端分离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工厂方法模式/">工厂方法模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件流/">文件流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简单工厂模式/">简单工厂模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连接池/">连接池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高并发/">高并发</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ActiveMQ/" style="font-size: 13px;">ActiveMQ</a> <a href="/tags/Email/" style="font-size: 13px;">Email</a> <a href="/tags/GOF设计模式/" style="font-size: 13.25px;">GOF设计模式</a> <a href="/tags/Hystrix/" style="font-size: 13px;">Hystrix</a> <a href="/tags/Java基础/" style="font-size: 13px;">Java基础</a> <a href="/tags/MVVM/" style="font-size: 13px;">MVVM</a> <a href="/tags/Mybatis/" style="font-size: 13.25px;">Mybatis</a> <a href="/tags/NoSql/" style="font-size: 13px;">NoSql</a> <a href="/tags/PageHelper/" style="font-size: 13px;">PageHelper</a> <a href="/tags/SpringBoot/" style="font-size: 14px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.25px;">SpringCloud</a> <a href="/tags/UML类图/" style="font-size: 13.75px;">UML类图</a> <a href="/tags/dubbo/" style="font-size: 13.25px;">dubbo</a> <a href="/tags/eclipse/" style="font-size: 13.75px;">eclipse</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hibernate/" style="font-size: 13px;">hibernate</a> <a href="/tags/jdk/" style="font-size: 13px;">jdk</a> <a href="/tags/kafka/" style="font-size: 13.25px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.25px;">linux</a> <a href="/tags/maven/" style="font-size: 13.5px;">maven</a> <a href="/tags/properties/" style="font-size: 13px;">properties</a> <a href="/tags/redis/" style="font-size: 13.5px;">redis</a> <a href="/tags/rpc/" style="font-size: 13.5px;">rpc</a> <a href="/tags/shiro/" style="font-size: 13.25px;">shiro</a> <a href="/tags/tomcat/" style="font-size: 13px;">tomcat</a> <a href="/tags/yml/" style="font-size: 13px;">yml</a> <a href="/tags/zookeeper/" style="font-size: 13px;">zookeeper</a> <a href="/tags/分布式/" style="font-size: 13.25px;">分布式</a> <a href="/tags/前后端分离/" style="font-size: 13px;">前后端分离</a> <a href="/tags/工厂方法模式/" style="font-size: 13px;">工厂方法模式</a> <a href="/tags/微服务/" style="font-size: 13px;">微服务</a> <a href="/tags/文件流/" style="font-size: 13px;">文件流</a> <a href="/tags/简单工厂模式/" style="font-size: 13px;">简单工厂模式</a> <a href="/tags/设计模式/" style="font-size: 13.75px;">设计模式</a> <a href="/tags/连接池/" style="font-size: 13px;">连接池</a> <a href="/tags/集群/" style="font-size: 13px;">集群</a> <a href="/tags/高并发/" style="font-size: 13.75px;">高并发</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/08/常用设计模式系列（三）—抽象工厂模式/" class="title">常用设计模式系列（三）—抽象工厂模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-08T12:00:28.000Z" itemprop="datePublished">2020-12-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/07/常用设计模式系列（二）—工厂方法模式/" class="title">常用设计模式系列（二）—工厂方法模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-06T16:03:51.000Z" itemprop="datePublished">2020-12-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/06/设计模式系列（一）—简单工厂模式/" class="title">设计模式系列（一）—简单工厂模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-05T16:03:51.000Z" itemprop="datePublished">2020-12-06</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/11/08/什么是设计模式？详解设计模式概念及几大原则/" class="title">什么是设计模式？详解设计模式概念及几大原则</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-11-08T14:20:46.000Z" itemprop="datePublished">2020-11-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/06/19/何为前后端分离？/" class="title">何为前后端分离？</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-06-19T06:42:33.000Z" itemprop="datePublished">2020-06-19</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-常用设计模式系列（三）—抽象工厂模式" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      常用设计模式系列（三）—抽象工厂模式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/12/08/常用设计模式系列（三）—抽象工厂模式/" class="article-date">
+	  <time datetime="2020-12-08T12:00:28.000Z" itemprop="datePublished">2020-12-08</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/GOF设计模式/">GOF设计模式</a>, <a class="article-tag-link" href="/tags/UML类图/">UML类图</a>, <a class="article-tag-link" href="/tags/设计模式/">设计模式</a>
+  </span>
+
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2020/12/08/常用设计模式系列（三）—抽象工厂模式/" class="leancloud_visitors" data-flag-title="常用设计模式系列（三）—抽象工厂模式">0</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/12/08/常用设计模式系列（三）—抽象工厂模式/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>各位大佬好，又是一个冷嗖嗖的日子，这个城市的天气最近一直都不太好，说下雪吧也不下，天气也不晴，让人甚是难受。前段时间周围的城市都下雪了，盼了好久的雪也没盼到，只等来了冷风作祟。基于我的心情，我来吟诗一首：</p>
+<blockquote>
+<p>​    《盼雪》</p>
+<p>昨日已别大雪，</p>
+<p>吾昼夜盼雪至。</p>
+<p>虽见细雨飘散，</p>
+<p>气寒云彩密集。</p>
+<p>盼雪之心已惫，</p>
+<p>不见漫天飘零。</p>
+<p>—— 作者：IT小白闯天下</p>
+</blockquote>
+<p><img src="/images/abstractfactory/1.png" alt=""></p>
+<p>​    开始我们今天的模式讲解，前期我分别讲解了简单工厂模式和工厂方法模式，工厂方法模式对比简单工厂模式，是在原有基础上进行了升级，将负责每个产品的工厂进行拆分，每个工厂生产自己的产品，此时的工厂类是只能生产自己的产品的。那么抽象工厂是再次升级，抽象工厂可定义每个工厂生产的产品种类，每个工厂从只生产一种产品改为只生产一个系列的产品。</p>
+<h2 id="二、概念讲解"><a href="#二、概念讲解" class="headerlink" title="二、概念讲解"></a>二、概念讲解</h2><h4 id="简单工厂模式：一个工厂生产所有产品。"><a href="#简单工厂模式：一个工厂生产所有产品。" class="headerlink" title="简单工厂模式：一个工厂生产所有产品。"></a>简单工厂模式：一个工厂生产所有产品。</h4><h4 id="工厂方法模式：每个工厂生产自己负责的具体产品。"><a href="#工厂方法模式：每个工厂生产自己负责的具体产品。" class="headerlink" title="工厂方法模式：每个工厂生产自己负责的具体产品。"></a>工厂方法模式：每个工厂生产自己负责的具体产品。</h4><h4 id="抽象工厂模式：抽象工厂模式是工厂方法模式的升级版本，工厂方法模式只生产一个等级的产品，而抽象工厂模式可生产多个等级（一个系列）的产品。"><a href="#抽象工厂模式：抽象工厂模式是工厂方法模式的升级版本，工厂方法模式只生产一个等级的产品，而抽象工厂模式可生产多个等级（一个系列）的产品。" class="headerlink" title="抽象工厂模式：抽象工厂模式是工厂方法模式的升级版本，工厂方法模式只生产一个等级的产品，而抽象工厂模式可生产多个等级（一个系列）的产品。"></a>抽象工厂模式：抽象工厂模式是工厂方法模式的升级版本，工厂方法模式只生产一个等级的产品，而抽象工厂模式可生产多个等级（一个系列）的产品。</h4><p><strong>那么抽象工厂怎么理解？抽象工厂是在工厂方法的基础上再次进行升级，具体升级了什么，我来使用生活实例进行讲解。</strong></p>
+<blockquote>
+<p>一个手机公司，目前在生产一个新品手机，目前手机屏幕和电池都需要三方供应商来供货，前期合作的供应商能够满足所需，由于现在客户量群体越来越大，第一家供应商无法满足，则选择了签约了另一家供应商同时供货（我用的某果手机的基带就是这种模式），那么手机生产厂家（抽象工厂）就定义了两个规范，生产符合要求的电池（抽象产品）和符合要求的屏幕（抽象产品），这两个条件就可以理解为抽象方法，那么此时，在抽象工厂则拥有两个抽象方法，下面的两个工厂都需要生产手机电池（具体产品）和手机屏幕（具体产品），通过扩展抽象工厂内部抽象方法的方式来要求下面工厂完成要求。</p>
+</blockquote>
+<p>​    <strong>上面使用的方式就是抽象工厂，将工厂方法模式中的一个工厂从生产一个产品改为生产一个系列产品。每个产品由多个产品工厂提供。</strong></p>
+<h3 id="用例图："><a href="#用例图：" class="headerlink" title="用例图："></a>用例图：</h3><p><img src="/images/abstractfactory/2.png" alt=""></p>
+<h3 id="抽象工厂方法模式构成："><a href="#抽象工厂方法模式构成：" class="headerlink" title="抽象工厂方法模式构成："></a>抽象工厂方法模式构成：</h3><p>1.抽象工厂（Abstract Factory）：提供了创建产品的接口，它包含多个创建产品的方法 newProduct()，可以创建多个不同等级的产品。。</p>
+<p>2.具体工厂（ConcreteFactory）：主要是实现抽象工厂中的抽象方法，完成具体产品的创建。    </p>
+<p>3.抽象产品（Product）：定义了产品的规范，描述了产品的主要特性和功能，抽象工厂模式支持多个抽象产品。</p>
+<p>4.具体产品（ConcreteProduct）：实现了抽象产品角色所定义的接口，由具体工厂来创建，它同具体工厂之间是多对一关系。</p>
+<p>可能有人会发现与工厂方法的构成类似，但是与工厂方法模式模式还是区别很大的，区别点如下：</p>
+<p>1.抽象工厂有多个创建产品的方法，而工厂方法模式只有一个</p>
+<p>2.抽象工厂模式是有多个抽象产品，工厂方法模式只有一个</p>
+<p>3.抽象工厂模式中具体工厂跟具体产品之间是一对多，但是工厂方法是一对一。</p>
+<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="/images/abstractfactory/3.png" alt=""></p>
+<h2 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h2><p>1.创建抽象产品A——电池抽象产品</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">- <span class="doctag">@ClassName</span> AbstractProductA</span></span><br><span class="line"><span class="comment">- <span class="doctag">@Description</span> 抽象产品A</span></span><br><span class="line"><span class="comment">- <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment">- <span class="doctag">@Date</span> 2020/12/8 18:04</span></span><br><span class="line"><span class="comment">- <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment">  **/</span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractPower</span> </span>&#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  - 蓄电的抽象方法</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recharge</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>2.创建抽象产品B——屏幕抽象产品<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AbstractProductB</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 18:05</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractScreen</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 抽象方法显示</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">light</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.创建具体电池产品，A工厂生产的电池产品和B工厂生产的电池产品<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> PowerA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 18:09</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerA</span> <span class="keyword">implements</span> <span class="title">AbstractPower</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recharge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是A厂商的电池，我可以蓄电"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> PowerB</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 18:09</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerB</span> <span class="keyword">implements</span> <span class="title">AbstractPower</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recharge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是B厂商的电池，我可以蓄电"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.创建具体屏幕产品，B工厂生产的屏幕产品和B工厂生产的屏幕产品<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ScreenA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 18:10</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScreenA</span> <span class="keyword">implements</span> <span class="title">AbstractScreen</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">light</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是A厂商的屏幕，我可以显示图片"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ScreenB</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 18:10</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScreenB</span> <span class="keyword">implements</span> <span class="title">AbstractScreen</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">light</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我是B厂商的屏幕，我可以显示图片"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">5</span>.创建抽象工厂</span><br><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.factory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.AbstractPower;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.AbstractScreen;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AbstractFactory</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 抽象工厂</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 20:43</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建产品A的抽象方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractPower <span class="title">createPower</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建产品B的抽象方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractScreen <span class="title">createScreen</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>6.创建具体工厂A和具体工厂B<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.factory;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.AbstractPower;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.AbstractScreen;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.PowerA;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.ScreenA;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcreteProductFactoryA</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 20:07</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductFactoryA</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractPower <span class="title">createPower</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PowerA();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractScreen <span class="title">createScreen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ScreenA();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.factory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcreteProductFactoryB</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 20:39</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductFactoryB</span> <span class="keyword">implements</span> <span class="title">AbstractFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractPower <span class="title">createPower</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PowerB();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractScreen <span class="title">createScreen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ScreenB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>7.创建客户端，分别测试A工厂和B工厂生产电池，同时测试A工厂B工厂生产屏幕<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.abstractfactory.clent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.factory.AbstractFactory;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.factory.ConcreteProductFactoryA;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.factory.ConcreteProductFactoryB;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.AbstractPower;</span><br><span class="line"><span class="keyword">import</span> com.yang.abstractfactory.product.AbstractScreen;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Client</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/8 20:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//使用A工厂创建电池产品</span></span><br><span class="line">        AbstractFactory factory = <span class="keyword">new</span> ConcreteProductFactoryA();</span><br><span class="line">        AbstractPower power = factory.createPower();</span><br><span class="line">        power.recharge();</span><br><span class="line">        <span class="comment">//使用A工厂创建屏幕产品</span></span><br><span class="line">        AbstractScreen screen = factory.createScreen();</span><br><span class="line">        screen.light();</span><br><span class="line">        <span class="comment">//使用B工厂创建电池产品</span></span><br><span class="line">        factory = <span class="keyword">new</span> ConcreteProductFactoryB();</span><br><span class="line">        power = factory.createPower();</span><br><span class="line">        power.recharge();</span><br><span class="line">        <span class="comment">//使用A工厂创建屏幕产品</span></span><br><span class="line">        screen = factory.createScreen();</span><br><span class="line">        screen.light();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>8.测试结果如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">我是A厂商的电池，我可以蓄电</span><br><span class="line">我是A厂商的屏幕，我可以显示图片</span><br><span class="line">我是B厂商的电池，我可以蓄电</span><br><span class="line">我是B厂商的屏幕，我可以显示图片</span><br></pre></td></tr></table></figure></p>
+<p>9.抽象工厂全家类合辑</p>
+<p><img src="/images/abstractfactory/4.png" alt=""></p>
+<h2 id="四、抽象工厂方法模式优缺点及适用场景"><a href="#四、抽象工厂方法模式优缺点及适用场景" class="headerlink" title="四、抽象工厂方法模式优缺点及适用场景"></a>四、抽象工厂方法模式优缺点及适用场景</h2><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.抽象工厂隔离了具体类的创建过程，不需要知道怎么创建，由于隔离，当需要更换工厂时，只需要选择实现了抽象工厂并实现了定义的抽象方法的具体工厂即可，可以通过改变工厂的方式改变软线系统的行为。</p>
+<p>2.当一个产品族的多个对象被设计到一起工作时，抽象工厂可以保证客户端始终只是用同一个产品族的对象。</p>
+<p>3.容易扩展产品族</p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>如果要增加新的产品分类，则需要对原有系统进行较大的修改，需要动到抽象层，会违背开闭原则。</p>
+<p>解释：</p>
+<p>新的产品族：同一个产品由不同厂商提供，就是属于同一个产品族</p>
+<p>新的产品分类：新的产品类型</p>
+<p>###适用场景</p>
+<p>1.一个系统不需要关心具体对象创建过程，需要将对象创建和使用进行解耦时。</p>
+<p>2.系统中有多个产品族，每次只是用其中某一种产品族时。</p>
+<p>3.属于同一种产品族的产品放一起使用时（例如A工厂的电池和B工厂的电池都被手机厂使用时）。</p>
+<p>4.产品分类固定，设计之后不会再增加产品分类时，</p>
+
+      
+    </div>
+    <div class="article-footer">
+      
+    
+        <div class="panel panel-default panel-badger">
+            <div class="panel-body">
+                <figure class="media">
+                    <div class="media-left">
+                        <a href="/about" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatarnew.jpg" class="img-rounded w-full" alt="">
+        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading"><a href="/about" target="_blank"><span class="text-dark">Java小白_Mr.Yang</span><small class="ml-1x">Java 开发工程师</small></a></h3>
+                        <div>
+                            个人简介。
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        </div>
+        
+    </div>
+  </article>
+  
+    
+    <section id="comments">
+        
+                                                            
+       <div id="SOHUCS"></div>
+
+                                                                
+    </section>
+    
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/12/07/常用设计模式系列（二）—工厂方法模式/" title="常用设计模式系列（二）—工厂方法模式"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>打赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>觉得不错，给博主打赏一下吧</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/alipayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开支付宝,扫码打赏一杯咖啡钱!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/weichat.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开微信,扫码打赏一杯咖啡钱!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        <div class="copyright">
+            
+        </div>
+        <div class="BbeiAn-info" "="">
+		<a href="https://beian.miit.gov.cn ">豫ICP备19021650号-1</a>
+	</div>
+</footer>
+  <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+    <link href="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script>
+        //利用 FancyBox 实现点击图片放大
+        $(document).ready(function() {
+            $('article img').not('[hidden]').not('.panel-body img').each(function () {
+                var $image = $(this);
+                var imageCaption = $image.attr('alt');
+                var $imageWrapLink = $image.parent('a');
+                if ($imageWrapLink.length < 1) {
+                var src = this.getAttribute('src');
+                var idx = src.lastIndexOf('?');
+                if (idx != -1) {
+                    src = src.substring(0, idx);
+                }
+                $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+                }
+                $imageWrapLink.attr('data-fancybox', 'images');
+                if (imageCaption) {
+                $imageWrapLink.attr('data-caption', imageCaption);
+                }
+            });
+            $().fancybox({
+                selector: '[data-fancybox="images"]',
+                hash: false,
+                loop: false,
+            }); 
+        });
+    </script>
+    
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+
+        
+            <!-- custom analytics part create by xiamo -->
+            <script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+            <script>
+                AV.init({
+                    appId: '7zI4DxIGDY35x3d1h6XmX1ys-gzGzoHsz',
+                    appKey: 'Lg3fMUTGskzVFEM77aiKqVUk'
+                });
+
+                function showTime(Counter) {
+                    var query = new AV.Query(Counter);
+                    var visitors = $('.leancloud_visitors');
+                    query.greaterThanOrEqualTo("time", 0);
+                    query.find({
+                        success: function(results) {
+                            if (results.length == 0) {
+                                return;
+                            }
+                            var data = results;
+                            visitors.each(function() {
+                                var url = $(this).attr('id').trim();
+                                for (var i = 0; i < data.length; i++) {
+                                    var object = data[i];
+                                    var content = object.get('time');
+                                    var _url = object.get('url')
+                                    if (url == _url) {
+                                        $(this).text(content);
+                                    }
+                                }
+                            })
+
+                        },
+                        error: function(object, error) {
+                            console.log("Error: " + error.code + " " + error.message);
+                        }
+                    });
+                }
+
+                function addCount(Counter) {
+                    var Counter = AV.Object.extend("Counter");
+                    url = $(".leancloud_visitors").attr('id').trim();
+                    title = $(".leancloud_visitors").attr('data-flag-title').trim();
+                    var query = new AV.Query(Counter);
+                    query.equalTo("url", url);
+                    query.find({
+                        success: function(results) {
+                            if (results.length > 0) {
+                                var counter = results[0];
+                                counter.fetchWhenSave(true);
+                                counter.increment("time");
+                                counter.save(null, {
+                                    success: function(counter) {
+                                        var content = counter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(counter, error) {
+                                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                                    }
+                                });
+                            } else {
+                                var newcounter = new Counter();
+                                newcounter.set("title", title);
+                                newcounter.set("url", url);
+                                newcounter.set("time", 1);
+                                newcounter.save(null, {
+                                    success: function(newcounter) {
+                                        console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                        var content = newcounter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(newcounter, error) {
+                                        console.log('Failed to create');
+                                    }
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            console.log('Error:' + error.code + " " + error.message);
+                        }
+                    });
+                }
+                $(function() {
+                    var Counter = AV.Object.extend("Counter");
+                    if ($('.leancloud_visitors').length == 1) {
+                        addCount(Counter);
+                    } else {
+                        showTime(Counter);
+                    }
+                });
+            </script>
+            
+    
+    
+        
+                                                    
+	<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+	<script type="text/javascript">
+	window.changyan.api.config({
+	appid: 'cyui87E8f',
+	conf: 'prod_475c88f5dcbd1e8f3c566a93f6c2f8b4'
+	});
+</script>
+
+                                                        
+    
+    
+
+
+
+</body>
+</html>
