@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta name="referrer" content="never">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>常用设计模式系列（五）—原型模式 | Java小白的个人博客</title>
+  <meta name="description" content="一、前言各位朋友大家好，经过几天的努力，我已经讲解了常用设计模式其中的四种，分别是简单工厂、工厂方法、抽象工厂、建造者模式，正在想着下一遍写哪个模式的时候，有个朋友先说他想先看看原型模式，说想看看原型模式是如何运行的，然后我给这个朋友讲了个故事：“从前有个老铁得了个病，听说还挺严重的，后来经过询问，他得的是没毛病，加起来就是老铁！没毛病”。  如何引入原型模式呢？每位程序员在编程的过程中，在A工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用设计模式系列（五）—原型模式">
+<meta property="og:url" content="http://yzx9607.coding.me/2021/10/09/常用设计模式系列（五）—原型模式/index.html">
+<meta property="og:site_name" content="Java小白的个人博客">
+<meta property="og:description" content="一、前言各位朋友大家好，经过几天的努力，我已经讲解了常用设计模式其中的四种，分别是简单工厂、工厂方法、抽象工厂、建造者模式，正在想着下一遍写哪个模式的时候，有个朋友先说他想先看看原型模式，说想看看原型模式是如何运行的，然后我给这个朋友讲了个故事：“从前有个老铁得了个病，听说还挺严重的，后来经过询问，他得的是没毛病，加起来就是老铁！没毛病”。  如何引入原型模式呢？每位程序员在编程的过程中，在A工程">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yzx9607.coding.me/assets/image-1633760657973.png">
+<meta property="og:image" content="http://yzx9607.coding.me/assets/image-1633760838144.png">
+<meta property="og:image" content="http://yzx9607.coding.me/assets/image-1633760657974.png">
+<meta property="og:updated_time" content="2021-10-09T06:36:20.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用设计模式系列（五）—原型模式">
+<meta name="twitter:description" content="一、前言各位朋友大家好，经过几天的努力，我已经讲解了常用设计模式其中的四种，分别是简单工厂、工厂方法、抽象工厂、建造者模式，正在想着下一遍写哪个模式的时候，有个朋友先说他想先看看原型模式，说想看看原型模式是如何运行的，然后我给这个朋友讲了个故事：“从前有个老铁得了个病，听说还挺严重的，后来经过询问，他得的是没毛病，加起来就是老铁！没毛病”。  如何引入原型模式呢？每位程序员在编程的过程中，在A工程">
+<meta name="twitter:image" content="http://yzx9607.coding.me/assets/image-1633760657973.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://yzx9607.coding.me/2021/10/09/常用设计模式系列（五）—原型模式/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Java小白的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <!-- font-awesome CSS -->
+  <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+    
+    
+
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+        <div class="navbar-header">
+            
+                
+                    <div class="profile-block text-center">
+                        <a id="avatar" href="/about" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatarnew.jpg" width="200" height="200">
+        </a>
+                        <h2 id="name" class="hidden-xs hidden-sm">
+                            Java小白_Mr.Yang
+                        </h2>
+                        <h3 id="title" class="hidden-xs hidden-sm hidden-md">
+                            Java 开发工程师
+                        </h3>
+                        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ZhengZhou, China</small>
+                    </div>
+                    
+                        <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+                            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        </div>
+        <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+            <ul class="nav navbar-nav main-nav ">
+                
+                    
+                        <li class="menu-item menu-item-home">
+                            <a href="/.">
+                                
+                                    <i class="icon icon-home-fill"></i>
+                                    
+                                        <span class="menu-title">Home</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-archives">
+                            <a href="/archives">
+                                
+                                    <i class="icon icon-archives-fill"></i>
+                                    
+                                        <span class="menu-title">Archives</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-tags">
+                            <a href="/tags">
+                                
+                                    <i class="icon icon-tags"></i>
+                                    
+                                        <span class="menu-title">Tags</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-repository">
+                            <a href="https://gitee.com/yzx9607">
+                                
+                                    <i class="icon icon-project"></i>
+                                    
+                                        <span class="menu-title">Repository</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-links">
+                            <a href="/links">
+                                
+                                    <i class="icon icon-friendship"></i>
+                                    
+                                        <span class="menu-title">Links</span>
+                            </a>
+                        </li>
+                        
+                    
+                        <li class="menu-item menu-item-about">
+                            <a href="/about">
+                                
+                                    <i class="icon icon-cup-fill"></i>
+                                    
+                                        <span class="menu-title">About</span>
+                            </a>
+                        </li>
+                        
+            </ul>
+            
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        </nav>
+    </div>
+</header>
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActiveMQ/">ActiveMQ</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Email/">Email</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GOF设计模式/">GOF设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hystrix/">Hystrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java基础/">Java基础</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVVM/">MVVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSql/">NoSql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageHelper/">PageHelper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringCloud/">SpringCloud</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML类图/">UML类图</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/">dubbo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eclipse/">eclipse</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kafka/">kafka</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/properties/">properties</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpc/">rpc</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shiro/">shiro</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yml/">yml</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前后端分离/">前后端分离</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工厂方法模式/">工厂方法模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微服务/">微服务</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文件流/">文件流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简单工厂模式/">简单工厂模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连接池/">连接池</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集群/">集群</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高并发/">高并发</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ActiveMQ/" style="font-size: 13px;">ActiveMQ</a> <a href="/tags/Email/" style="font-size: 13px;">Email</a> <a href="/tags/GOF设计模式/" style="font-size: 13.4px;">GOF设计模式</a> <a href="/tags/Hystrix/" style="font-size: 13px;">Hystrix</a> <a href="/tags/Java基础/" style="font-size: 13px;">Java基础</a> <a href="/tags/MVVM/" style="font-size: 13px;">MVVM</a> <a href="/tags/Mybatis/" style="font-size: 13.2px;">Mybatis</a> <a href="/tags/NoSql/" style="font-size: 13px;">NoSql</a> <a href="/tags/PageHelper/" style="font-size: 13px;">PageHelper</a> <a href="/tags/SpringBoot/" style="font-size: 14px;">SpringBoot</a> <a href="/tags/SpringCloud/" style="font-size: 13.2px;">SpringCloud</a> <a href="/tags/UML类图/" style="font-size: 13.8px;">UML类图</a> <a href="/tags/dubbo/" style="font-size: 13.2px;">dubbo</a> <a href="/tags/eclipse/" style="font-size: 13.6px;">eclipse</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hibernate/" style="font-size: 13px;">hibernate</a> <a href="/tags/jdk/" style="font-size: 13px;">jdk</a> <a href="/tags/kafka/" style="font-size: 13.2px;">kafka</a> <a href="/tags/linux/" style="font-size: 13.2px;">linux</a> <a href="/tags/maven/" style="font-size: 13.4px;">maven</a> <a href="/tags/properties/" style="font-size: 13px;">properties</a> <a href="/tags/redis/" style="font-size: 13.4px;">redis</a> <a href="/tags/rpc/" style="font-size: 13.4px;">rpc</a> <a href="/tags/shiro/" style="font-size: 13.2px;">shiro</a> <a href="/tags/tomcat/" style="font-size: 13px;">tomcat</a> <a href="/tags/yml/" style="font-size: 13px;">yml</a> <a href="/tags/zookeeper/" style="font-size: 13px;">zookeeper</a> <a href="/tags/分布式/" style="font-size: 13.2px;">分布式</a> <a href="/tags/前后端分离/" style="font-size: 13px;">前后端分离</a> <a href="/tags/工厂方法模式/" style="font-size: 13px;">工厂方法模式</a> <a href="/tags/微服务/" style="font-size: 13px;">微服务</a> <a href="/tags/文件流/" style="font-size: 13px;">文件流</a> <a href="/tags/简单工厂模式/" style="font-size: 13px;">简单工厂模式</a> <a href="/tags/设计模式/" style="font-size: 13.8px;">设计模式</a> <a href="/tags/连接池/" style="font-size: 13px;">连接池</a> <a href="/tags/集群/" style="font-size: 13px;">集群</a> <a href="/tags/高并发/" style="font-size: 13.6px;">高并发</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/09/常用设计模式系列（五）—原型模式/" class="title">常用设计模式系列（五）—原型模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-09T06:21:35.000Z" itemprop="datePublished">2021-10-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/20/常用设计模式系列（四）—建造者模式/" class="title">常用设计模式系列（四）—建造者模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-20T14:54:56.000Z" itemprop="datePublished">2020-12-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/08/常用设计模式系列（三）—抽象工厂模式/" class="title">常用设计模式系列（三）—抽象工厂模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-08T12:00:28.000Z" itemprop="datePublished">2020-12-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/07/常用设计模式系列（二）—工厂方法模式/" class="title">常用设计模式系列（二）—工厂方法模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-06T16:03:51.000Z" itemprop="datePublished">2020-12-07</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2020/12/06/设计模式系列（一）—简单工厂模式/" class="title">设计模式系列（一）—简单工厂模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-12-05T16:03:51.000Z" itemprop="datePublished">2020-12-06</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-常用设计模式系列（五）—原型模式" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      常用设计模式系列（五）—原型模式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/10/09/常用设计模式系列（五）—原型模式/" class="article-date">
+	  <time datetime="2021-10-09T06:21:35.000Z" itemprop="datePublished">2021-10-09</time>
+	</a>
+</span>
+        
+        
+
+        
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/10/09/常用设计模式系列（五）—原型模式/" class="leancloud_visitors" data-flag-title="常用设计模式系列（五）—原型模式">0</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/09/常用设计模式系列（五）—原型模式/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>各位朋友大家好，经过几天的努力，我已经讲解了常用设计模式其中的四种，分别是<strong>简单工厂、工厂方法、抽象工厂、建造者模式</strong>，正在想着下一遍写哪个模式的时候，有个朋友先说他想先看看原型模式，说想看看原型模式是如何运行的，然后我给这个朋友讲了个故事：“从前有个老铁得了个病，听说还挺严重的，后来经过询问，他得的是没毛病，加起来就是老铁！没毛病”。</p>
+<p><img src="/assets/image-1633760657973.png" alt="img"></p>
+<p><strong>如何引入原型模式呢？每位程序员在编程的过程中，在A工程的中进行了程序编写，编写一个很好用的工具，在B系统使用时发现也有相似的场景需要使用，那这个时候会去A工程把需要用的代码拷贝到B工程，这个复制粘贴的过程，就是原型模式的思想。</strong></p>
+<h2 id="二、原型模式概念"><a href="#二、原型模式概念" class="headerlink" title="二、原型模式概念"></a>二、原型模式概念</h2><p>用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象。在这里，原型实例指定了要创建的对象的种类。用这种方式创建对象非常高效，根本无须知道对象创建的细节。</p>
+<p>原型模式主要表现形式，提供一个实例，通过代码去复制这个实例获得新对象。</p>
+<h3 id="主要结构："><a href="#主要结构：" class="headerlink" title="主要结构："></a>主要结构：</h3><ol>
+<li>抽象原型类（Abstrct Prototype）：规定了具体原型对象必须实现的接口。</li>
+<li>具体原型类(Concrete Prototype)：实现抽象原型类的 clone() 方法，它是可被复制的对象。</li>
+<li>访问类：使用具体原型类中的 clone() 方法来复制新的对象。</li>
+</ol>
+<h3 id="场景举例："><a href="#场景举例：" class="headerlink" title="场景举例："></a>场景举例：</h3><blockquote>
+<p>​        讲个场景，一位朋友租了一个房子，房东给了一把钥匙，然后他想给他女朋友配一把新的钥匙（ps：他有女朋友，你扎心不?老铁），然后他拿着这个要是找到了配钥匙的大爷，大爷拿着原有的钥匙，给配了一把一模一样的钥匙，这个配置的方式，也叫克隆，两个本体极为相似，但又不是一个本体，这个模式就叫做原型模式。</p>
+</blockquote>
+<h3 id="克隆模式分类："><a href="#克隆模式分类：" class="headerlink" title="克隆模式分类："></a>克隆模式分类：</h3><ul>
+<li>浅克隆：使用克隆后，克隆好的对象与原对象不同，但是对象内的成员（成员对象、成员变量）引用地址相同。</li>
+<li>深克隆：使用克隆后，克隆好的对象以及对象内的成员成员对象、成员变量）引用地址都不同。</li>
+</ul>
+<p><strong>解释：</strong>一个人拥有一部手机，浅克隆就是克隆了这个人，但是手机是两个人共享，但是深克隆就是人和手机都被克隆了，每个人都拥有自己的手机。</p>
+<h3 id="UML图（浅克隆）"><a href="#UML图（浅克隆）" class="headerlink" title="UML图（浅克隆）"></a>UML图（浅克隆）</h3><p><img src="/assets/image-1633760838144.png" alt="img"> </p>
+<h3 id="三、代码实现"><a href="#三、代码实现" class="headerlink" title="三、代码实现"></a>三、代码实现</h3><p>使用自定义方法实现浅克隆</p>
+<p>1.编写抽象原型，定义抽象方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.deploy.net.protocol.ProtocolType;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> AbstractPrototype</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 抽象原型</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 17:34</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AbstractPrototype</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自定义克隆方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">clone</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.编写具体原型A<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.deploy.net.protocol.ProtocolType;</span><br><span class="line"><span class="keyword">import</span> com.yang.builder.Product;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcretePrototype</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 具体原型A</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 17:37</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeA</span> <span class="keyword">implements</span> <span class="title">AbstractPrototype</span>&lt;<span class="title">ConcretePrototypeA</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//实例名称</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ConcretePrototypeA <span class="title">clone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ConcretePrototypeA protocolType = <span class="keyword">new</span> ConcretePrototypeA();</span><br><span class="line">        protocolType.setName(<span class="keyword">this</span>.getName().toString());</span><br><span class="line">        <span class="keyword">return</span> protocolType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.编写具体原型B<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcretePrototype</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 具体原型B</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 17:37</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeB</span> <span class="keyword">implements</span> <span class="title">AbstractPrototype</span>&lt;<span class="title">ConcretePrototypeB</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//实例名称</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ConcretePrototypeB <span class="title">clone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ConcretePrototypeB protocolType = <span class="keyword">new</span> ConcretePrototypeB();</span><br><span class="line">        protocolType.setName(<span class="keyword">this</span>.getName());</span><br><span class="line">        <span class="keyword">return</span> protocolType;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.编写客户端测试<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> Client</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 17:42</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//具体原型对象创建</span></span><br><span class="line">        ConcretePrototypeA concretePrototype = <span class="keyword">new</span> ConcretePrototypeA();</span><br><span class="line">        <span class="comment">//设置名称</span></span><br><span class="line">        concretePrototype.setName(<span class="string">"我是十字钥匙"</span>);</span><br><span class="line">        <span class="comment">//克隆对象</span></span><br><span class="line">        ConcretePrototypeA concretePrototypeA1 = concretePrototype.clone();</span><br><span class="line">        <span class="comment">//打印克隆的名称</span></span><br><span class="line">        System.out.println(concretePrototypeA1.getName());</span><br><span class="line">        <span class="comment">//查看是否是同一个对象</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeA对象对比："</span>+(concretePrototype == concretePrototypeA1));</span><br><span class="line">        <span class="comment">//查看成员变量引用</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeA对象成员变量引用对比："</span>+(concretePrototype.getName() == concretePrototypeA1.getName()));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//具体原型对象创建</span></span><br><span class="line">        ConcretePrototypeB concretePrototypeB = <span class="keyword">new</span> ConcretePrototypeB();</span><br><span class="line">        <span class="comment">//设置名称</span></span><br><span class="line">        concretePrototypeB.setName(<span class="string">"我是电子钥匙"</span>);</span><br><span class="line">        <span class="comment">//克隆对象concretePrototype</span></span><br><span class="line">        ConcretePrototypeB concretePrototypeB1 = concretePrototypeB.clone();</span><br><span class="line">        <span class="comment">//打印克隆的名称</span></span><br><span class="line">        System.out.println(concretePrototypeB1.getName());</span><br><span class="line">        <span class="comment">//查看是否是同一个对象</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeB对象对比："</span>+(concretePrototypeB == concretePrototypeB1));</span><br><span class="line">        <span class="comment">//查看成员变量引用</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeB对象成员变量引用对比："</span>+(concretePrototypeB.getName() == concretePrototypeB1.getName()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5.测试结果如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我是十字钥匙</span><br><span class="line">ConcretePrototypeA对象对比：<span class="keyword">false</span></span><br><span class="line">ConcretePrototypeA对象成员变量引用对比：<span class="keyword">true</span></span><br></pre></td></tr></table></figure></p>
+<p>测试结论：</p>
+<p>由测试结果可以看出，使用浅克隆方式的对象，与原对象的引用地址不同，但是内部成员变量的地址是相同的。</p>
+<p>我们都知道Java中的超类是Object，每个对象的最终级别父类都是Object，Object也提供了clone方法,那它是浅拷贝还是深拷贝呢？我们看下源码。</p>
+<p><img src="/assets/image-1633760657974.png" alt="img"></p>
+<blockquote>
+<p>发现源码中方法为native类型的，native类型的方法已经是非Java语言编写的了，是Java本身对底层的访问与操作，是其他语言编写的，不能够再通过Java编辑器找到具体代码。代码上声明了CloneNotSupportedException异常，并且写了注释，我们可以通过注释(if the object’s class does not  support the {@code Cloneable} interface. Subclasses that override the {@code clone} method can also throw this exception to indicate that an instance cannot  be cloned.)看到，如果一个类没有实现Cloneable接口，但是这个类重写了clone方法，那这个类将不能被克隆且会抛出CloneNotSupportedException异常。我们来使用代码尝试下clone。</p>
+</blockquote>
+<h3 id="Object的clone实现克隆"><a href="#Object的clone实现克隆" class="headerlink" title="Object的clone实现克隆"></a>Object的clone实现克隆</h3><p>1.编写原型ConcretePrototypeC，重写下clone方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcretePrototypeC</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 17:34</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeC</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ConcretePrototypeC <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (ConcretePrototypeC)<span class="keyword">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.编写客户端测试<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ClentTest</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 17:35</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//创建原型产品</span></span><br><span class="line">        ConcretePrototypeC concretePrototypeC = <span class="keyword">new</span> ConcretePrototypeC();</span><br><span class="line">        concretePrototypeC.setName(<span class="string">"手机"</span>);</span><br><span class="line">        <span class="comment">//克隆</span></span><br><span class="line">        ConcretePrototypeC concretePrototypeC1 = concretePrototypeC.clone();</span><br><span class="line">        <span class="comment">//打印克隆的名称</span></span><br><span class="line">        System.out.println(concretePrototypeC1.getName());</span><br><span class="line">        <span class="comment">//查看是否是同一个对象</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeA对象对比："</span>+(concretePrototypeC == concretePrototypeC1));</span><br><span class="line">        <span class="comment">//查看成员变量引用</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeA对象成员变量引用对比："</span>+(concretePrototypeC.getName() == concretePrototypeC1.getName()));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.程序运行结果，由于未实现Cloneable接口，代码抛出了java.lang.CloneNotSupportedException异常<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> java.lang.CloneNotSupportedException: com.yang.prototype.ConcretePrototypeC</span><br><span class="line">	at java.lang.Object.clone(Native Method)</span><br><span class="line">	at com.yang.prototype.ConcretePrototypeC.clone(ConcretePrototypeC.java:<span class="number">23</span>)</span><br><span class="line">	at com.yang.prototype.ClientTest.main(ClientTest.java:<span class="number">16</span>)</span><br></pre></td></tr></table></figure></p>
+<p>4.给ConcretePrototypeC加上实现Cloneable接口后，代码运行结果如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">手机</span><br><span class="line">ConcretePrototypeA对象对比：<span class="keyword">false</span></span><br><span class="line">ConcretePrototypeA对象成员变量引用对比：<span class="keyword">true</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>结论：发现使用Java的clone也是使用浅拷贝，综合clone方法的注释可以判断，如果成员变量也想被克隆，那成员变量所属类也要实现Cloneable接口且重写clone方法，那如果程序每一个类都这么处理，代码开发过程将会变得极其复杂。<br>解释：一个人拥有一部手机，浅克隆就是克隆了这个人，但是手机是两个人共享，但是深克隆就是人和手机都被克隆了，如果想用Java的clone来完成深克隆，手机对象也要实现Cloneable以及重写clone方法，然后再人的clone方法加上mobile克隆。层级多的情况下，深克隆代码会相对复杂。</p>
+</blockquote>
+<p><strong>我经过查阅资料发现广大网友提供的解决方案：使用序列化+字节流的方式进行处理</strong></p>
+<h3 id="序列化克隆代码实现"><a href="#序列化克隆代码实现" class="headerlink" title="序列化克隆代码实现"></a>序列化克隆代码实现</h3><p>1.编写原型ConcretePrototypeD，自定义clone方法,注意需要实现Serializable接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ConcretePrototypeD</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 深克隆对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 18:07</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototypeD</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ConcretePrototypeD <span class="title">clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ConcretePrototypeD stu = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//将对象序列化到流里</span></span><br><span class="line">            ByteArrayOutputStream byteArrayOutputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">            ObjectOutputStream objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(byteArrayOutputStream);</span><br><span class="line">            objectOutputStream.writeObject(<span class="keyword">this</span>);</span><br><span class="line">            <span class="comment">//将流反序列化成对象</span></span><br><span class="line">            ByteArrayInputStream is = <span class="keyword">new</span> ByteArrayInputStream(byteArrayOutputStream.toByteArray());</span><br><span class="line">            ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(is);</span><br><span class="line">            stu = (ConcretePrototypeD) ois.readObject();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stu;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.编写测试类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yang.prototype;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ClietClone</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 注释</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> IT小白架构师之路</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/12/11 18:11</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClietClone</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建原型产品</span></span><br><span class="line">        ConcretePrototypeD concretePrototypeD = <span class="keyword">new</span> ConcretePrototypeD();</span><br><span class="line">        concretePrototypeD.setName(<span class="string">"深克隆的名字"</span>);</span><br><span class="line">        <span class="comment">//克隆产品</span></span><br><span class="line">        ConcretePrototypeD concretePrototypeD1 = concretePrototypeD.clone();</span><br><span class="line">        <span class="comment">//查看是否是同一个对象</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeA对象对比："</span>+(concretePrototypeD == concretePrototypeD1));</span><br><span class="line">        <span class="comment">//查看成员变量引用</span></span><br><span class="line">        System.out.println(<span class="string">"ConcretePrototypeA对象成员变量引用对比："</span>+(concretePrototypeD.getName() == concretePrototypeD1.getName()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.测试结果如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ConcretePrototypeA对象对比：<span class="keyword">false</span></span><br><span class="line">ConcretePrototypeA对象成员变量引用对比：<span class="keyword">false</span></span><br></pre></td></tr></table></figure></p>
+<p>结论：使用序列化+字节流的方式进行克隆，实现了类的深克隆。</p>
+<h2 id="四、优缺点分析及适用场景"><a href="#四、优缺点分析及适用场景" class="headerlink" title="四、优缺点分析及适用场景"></a>四、优缺点分析及适用场景</h2><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><p>1.可以简单快速的克隆对象，不需要再对成员赋值</p>
+<p>2.可以在不关心创建细节的情况下完成对象创建</p>
+<p>3.使用克隆比使用构造的方式快，因为虚拟机直接复制内存块执行克隆的。</p>
+<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><p>1.如果使用clone进行深拷贝，则需要很大的代码量把每一个类进行改造。</p>
+<p>2.克隆对象时需要考虑使用深克隆还是浅克隆，否则容易在修改过程中导致原类成员数据错乱。</p>
+<h3 id="适用场景："><a href="#适用场景：" class="headerlink" title="适用场景："></a>适用场景：</h3><p> 1.资源优化场景。</p>
+<p> 2.性能和安全要求的场景。</p>
+<p> 3.在类初始化需要消化非常多的资源场景时。</p>
+<p> 4.一个对象需要提供给其他对象访问，而且各个调用者可能都需要修改其值时，可以考虑使用原型模式的浅拷贝，拷贝多个对象供调用者使用。</p>
+<p> 5.在实际项目中，原型模式很少单独出现，一般是和工厂方法模式一起出现，通过 clone 的方法创建一个对象，然后由工厂方法提供给调用者；原型模式已经与 Java 融合在一起，任何开发人员可以随手拿来使用。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      
+    
+        <div class="panel panel-default panel-badger">
+            <div class="panel-body">
+                <figure class="media">
+                    <div class="media-left">
+                        <a href="/about" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatarnew.jpg" class="img-rounded w-full" alt="">
+        </a>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading"><a href="/about" target="_blank"><span class="text-dark">Java小白_Mr.Yang</span><small class="ml-1x">Java 开发工程师</small></a></h3>
+                        <div>
+                            个人简介。
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        </div>
+        
+    </div>
+  </article>
+  
+    
+    <section id="comments">
+        
+                                                            
+       <div id="SOHUCS"></div>
+
+                                                                
+    </section>
+    
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/12/20/常用设计模式系列（四）—建造者模式/" title="常用设计模式系列（四）—建造者模式"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>打赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>觉得不错，给博主打赏一下吧</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/alipayimg.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开支付宝,扫码打赏一杯咖啡钱!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/weichat.jpg" alt="Scan Qrcode" title="Scan">
+              </div>
+              <p class="text-muted mv">扫描上方二维码</p>
+              <p class="text-grey">打开微信,扫码打赏一杯咖啡钱!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/yzx9607" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/3074100533/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo" data-toggle="tooltip" data-placement="top"><i class="icon icon-weibo"></i></a></li>
+        
+    </ul>
+
+        <div class="copyright">
+            
+        </div>
+        <div class="BbeiAn-info" "="">
+		<a href="https://beian.miit.gov.cn ">豫ICP备19021650号-1</a>
+	</div>
+</footer>
+  <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+    <link href="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script>
+        //利用 FancyBox 实现点击图片放大
+        $(document).ready(function() {
+            $('article img').not('[hidden]').not('.panel-body img').each(function () {
+                var $image = $(this);
+                var imageCaption = $image.attr('alt');
+                var $imageWrapLink = $image.parent('a');
+                if ($imageWrapLink.length < 1) {
+                var src = this.getAttribute('src');
+                var idx = src.lastIndexOf('?');
+                if (idx != -1) {
+                    src = src.substring(0, idx);
+                }
+                $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+                }
+                $imageWrapLink.attr('data-fancybox', 'images');
+                if (imageCaption) {
+                $imageWrapLink.attr('data-caption', imageCaption);
+                }
+            });
+            $().fancybox({
+                selector: '[data-fancybox="images"]',
+                hash: false,
+                loop: false,
+            }); 
+        });
+    </script>
+    
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+  
+    
+    
+    
+        <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+    
+    
+        
+
+        
+            <!-- custom analytics part create by xiamo -->
+            <script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+            <script>
+                AV.init({
+                    appId: '7zI4DxIGDY35x3d1h6XmX1ys-gzGzoHsz',
+                    appKey: 'Lg3fMUTGskzVFEM77aiKqVUk'
+                });
+
+                function showTime(Counter) {
+                    var query = new AV.Query(Counter);
+                    var visitors = $('.leancloud_visitors');
+                    query.greaterThanOrEqualTo("time", 0);
+                    query.find({
+                        success: function(results) {
+                            if (results.length == 0) {
+                                return;
+                            }
+                            var data = results;
+                            visitors.each(function() {
+                                var url = $(this).attr('id').trim();
+                                for (var i = 0; i < data.length; i++) {
+                                    var object = data[i];
+                                    var content = object.get('time');
+                                    var _url = object.get('url')
+                                    if (url == _url) {
+                                        $(this).text(content);
+                                    }
+                                }
+                            })
+
+                        },
+                        error: function(object, error) {
+                            console.log("Error: " + error.code + " " + error.message);
+                        }
+                    });
+                }
+
+                function addCount(Counter) {
+                    var Counter = AV.Object.extend("Counter");
+                    url = $(".leancloud_visitors").attr('id').trim();
+                    title = $(".leancloud_visitors").attr('data-flag-title').trim();
+                    var query = new AV.Query(Counter);
+                    query.equalTo("url", url);
+                    query.find({
+                        success: function(results) {
+                            if (results.length > 0) {
+                                var counter = results[0];
+                                counter.fetchWhenSave(true);
+                                counter.increment("time");
+                                counter.save(null, {
+                                    success: function(counter) {
+                                        var content = counter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(counter, error) {
+                                        console.log('Failed to save Visitor num, with error message: ' + error.message);
+                                    }
+                                });
+                            } else {
+                                var newcounter = new Counter();
+                                newcounter.set("title", title);
+                                newcounter.set("url", url);
+                                newcounter.set("time", 1);
+                                newcounter.save(null, {
+                                    success: function(newcounter) {
+                                        console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                        var content = newcounter.get('time');
+                                        $(document.getElementById(url)).text(content);
+                                    },
+                                    error: function(newcounter, error) {
+                                        console.log('Failed to create');
+                                    }
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            console.log('Error:' + error.code + " " + error.message);
+                        }
+                    });
+                }
+                $(function() {
+                    var Counter = AV.Object.extend("Counter");
+                    if ($('.leancloud_visitors').length == 1) {
+                        addCount(Counter);
+                    } else {
+                        showTime(Counter);
+                    }
+                });
+            </script>
+            
+    
+    
+        
+                                                    
+	<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+	<script type="text/javascript">
+	window.changyan.api.config({
+	appid: 'cyui87E8f',
+	conf: 'prod_475c88f5dcbd1e8f3c566a93f6c2f8b4'
+	});
+</script>
+
+                                                        
+    
+    
+
+
+
+</body>
+</html>
